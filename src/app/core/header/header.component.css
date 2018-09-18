@@ -1,7 +1,12 @@
-.example-icon {
+.icon {
   padding: 0 10px;
 }
 
-.example-spacer {
+.spacer {
   flex: 1 1 auto;
+}
+
+.sub-text {
+  font-size: 0.8em;
+  font-weight: 400;
 }
