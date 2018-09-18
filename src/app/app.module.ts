@@ -1,3 +1,4 @@
+import { ProductModule } from './product/product.module';
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';

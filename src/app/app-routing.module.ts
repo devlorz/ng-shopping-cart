@@ -5,10 +5,14 @@ import { Route } from './core/route.service';
 const routes: Routes = [
   Route.withShell([
     {
-      path: 'product',
+      path: '',
       loadChildren: './product/product.module#ProductModule'
     }
   ]),
+  // {
+  //   path: 'product',
+  //   loadChildren: './product/product.module#ProductModule'
+  // },
   // Fallback when no prior route is matched
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
