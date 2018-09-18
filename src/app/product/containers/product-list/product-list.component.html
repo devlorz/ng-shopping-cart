@@ -1,3 +1,16 @@
-<p>
-  product-list works!
-</p>
+<ng-container *ngIf="!(loading$ | async); else loadingTpl">
+
+  <input placeholder="Search Product.." [formControl]="search">
+
+  {{ products$ | async | json }}
+
+  <div class="product-container">
+    <app-product *ngFor="let product of (products$ | async)" 
+                 [product]="product"
+                 (add)="onAddToCart($event)"
+                 (subtract)="onRemoveFromCart($event)"></app-product>
+  </div>
+
+</ng-container>
+
+<ng-template #loadingTpl>...</ng-template>

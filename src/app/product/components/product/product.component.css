@@ -1,0 +1,9 @@
+.card-container {
+  width: 400px;
+  margin: 4px 10px;
+}
+
+.pull-right {
+  display: flex;
+  justify-content: flex-end;
+}
