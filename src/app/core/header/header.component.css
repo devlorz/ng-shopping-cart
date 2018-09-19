@@ -1,5 +1,6 @@
 .icon {
   padding: 0 10px;
+  cursor: pointer;
 }
 
 .spacer {
@@ -9,4 +10,8 @@
 .sub-text {
   font-size: 0.8em;
   font-weight: 400;
+}
+
+mat-toolbar-row {
+  padding-left: 4px;
 }
