@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Product } from '../../product.model';
 import { ProductService } from '../../product.service';
+import { startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-list',
@@ -18,7 +19,12 @@ export class ProductListComponent implements OnInit {
   constructor(private productService: ProductService) {}
 
   ngOnInit() {
-    this.products$ = this.productService.get();
+    this.productService.get().subscribe();
+
+    this.products$ = this.search.valueChanges.pipe(
+      startWith(''),
+      switchMap(value => this.productService.getProductByName(value))
+    );
   }
 
   onAddToCart(product: Product) {}
