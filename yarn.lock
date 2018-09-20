@@ -272,6 +272,14 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
+"@ngrx/store-devtools@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-6.1.0.tgz#cf65a3149628dc37badd094204484dde9ba14200"
+
+"@ngrx/store@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-6.1.0.tgz#5b027647a797bf027912568214b10375dd75af38"
+
 "@ngtools/webpack@6.2.2":
   version "6.2.2"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-6.2.2.tgz#e3500f43a530c41470ea2b2cc470c5bbae3fbecd"
@@ -2893,6 +2901,10 @@ image-size@~0.5.0:
 immediate@~3.0.5:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
+
+immer@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-1.7.1.tgz#39e46b415c1086557c053d3657e5a348fbf2f971"
 
 import-cwd@^2.0.0:
   version "2.1.0"

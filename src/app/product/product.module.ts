@@ -5,13 +5,16 @@ import { ProductRoutingModule } from './product-routing.module';
 import { ProductListComponent } from './containers/product-list/product-list.component';
 import { ProductComponent } from './components/product/product.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { reducer } from './store/product.reducer';
 
 @NgModule({
   imports: [
     CommonModule,
     ProductRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forFeature('product', reducer)
   ],
   declarations: [ProductListComponent, ProductComponent]
 })
