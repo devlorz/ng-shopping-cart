@@ -1,13 +1,16 @@
 <ng-container *ngIf="!(loading$ | async); else loadingTpl">
 
-  <input placeholder="Search Product.."
-         [formControl]="search">
+  <!-- <input placeholder="Search Product.."
+         [formControl]="search"> -->
 
-  <div class="product-container">
-    <app-product *ngFor="let product of (products$ | async)"
-                 [product]="product"
-                 (add)="onAddToCart($event)"
-                 (subtract)="onRemoveFromCart($event)"></app-product>
+  <app-search-bar (search)="onSearch($event)"></app-search-bar>
+  <div class="wrapper">
+    <div class="product-container">
+      <app-product *ngFor="let product of (products$ | async)"
+                   [product]="product"
+                   (add)="onAddToCart($event)"
+                   (subtract)="onRemoveFromCart($event)"></app-product>
+    </div>
   </div>
 
 </ng-container>

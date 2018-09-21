@@ -1,0 +1,11 @@
+<div class="wrapper">
+  <mat-form-field [floatLabel]="'never'"
+                  class="search-bar"
+                  color="accent">
+    <input type="text"
+           placeholder="Search product..."
+           [ngModel]="searchText"
+           (ngModelChange)="onSearch($event)"
+           matInput>
+  </mat-form-field>
+</div>

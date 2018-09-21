@@ -22,6 +22,18 @@ const mockProducts = [
     title: 'inu',
     description: 'this is inu',
     price: 30000
+  },
+  {
+    id: 4,
+    title: 'bok',
+    description: 'this is bok',
+    price: 40000
+  },
+  {
+    id: 5,
+    title: 'wolf',
+    description: 'this is wolf',
+    price: 50000
   }
 ];
 

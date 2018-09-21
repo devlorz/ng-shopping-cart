@@ -21,13 +21,18 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {
     this.productService.get().subscribe();
 
-    this.products$ = this.search.valueChanges.pipe(
-      startWith(''),
-      switchMap(value => this.productService.getProductByName(value))
-    );
+    this.products$ = this.productService.getProductByName('');
+    // this.search.valueChanges.pipe(
+    //   startWith(''),
+    //   switchMap(value => this.productService.getProductByName(value))
+    // );
   }
 
   onAddToCart(product: Product) {}
 
   onRemoveFromCart(product: Product) {}
+
+  onSearch(text: string) {
+    this.products$ = this.productService.getProductByName(text);
+  }
 }
