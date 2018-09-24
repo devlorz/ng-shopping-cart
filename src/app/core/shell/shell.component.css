@@ -6,3 +6,7 @@ mat-sidenav-container {
 mat-sidenav {
   width: 300px;
 }
+
+mat-sidenav-content {
+  overflow-y: scroll;
+}

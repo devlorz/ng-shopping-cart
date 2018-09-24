@@ -1,0 +1,17 @@
+table {
+  width: 100%;
+}
+
+.footer-row {
+  font-weight: bold;
+}
+
+.right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.double {
+  display: flex;
+  flex-grow: 2;
+}
