@@ -272,6 +272,10 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
+"@ngrx/entity@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/entity/-/entity-6.1.0.tgz#9ea34beef25e458b45638095875b2548d484df9f"
+
 "@ngrx/store-devtools@^6.1.0":
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-6.1.0.tgz#cf65a3149628dc37badd094204484dde9ba14200"

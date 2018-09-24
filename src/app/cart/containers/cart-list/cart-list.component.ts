@@ -14,7 +14,6 @@ export class CartListComponent implements OnInit {
     'quantity',
     'total'
   ];
-  displayedFooterColumns: Array<string> = ['title', 'total'];
   dataSource: Array<CartItem & Product> = [
     {
       total: 40000,

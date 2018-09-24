@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
+import { reducer } from './cart/store/cart.reducer';
 
 @NgModule({
   imports: [
@@ -15,7 +16,9 @@ import { environment } from '../environments/environment';
     BrowserAnimationsModule,
     AppRoutingModule,
     CoreModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({
+      cart: reducer
+    }),
     StoreDevtoolsModule.instrument({
       name: 'Shopping Cart Store DevTools',
       logOnly: environment.production

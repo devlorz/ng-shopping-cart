@@ -5,3 +5,11 @@ export interface CartItem {
   quantity: number;
   total: number;
 }
+
+export function createCartItem(params: Partial<CartItem>) {
+  return {
+    total: 0,
+    quantity: 1,
+    ...params
+  } as CartItem;
+}
