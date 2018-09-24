@@ -1,24 +1,7 @@
-.wrapper {
-  display: flex;
-  justify-content: center;
-}
-
 .product-container {
-  display: flex;
-  /* justify-content: space-between; */
-  flex-wrap: wrap;
-  max-width: 1000px;
-}
-
-@media (max-width: 1336px) {
-  .product-container {
-    justify-content: space-between;
-    max-width: 640px;
-  }
-}
-
-@media (max-width: 640px) {
-  .product-container {
-    justify-content: center;
-  }
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(auto-fit, 300px);
+  justify-content: center;
+  justify-items: center;
 }
