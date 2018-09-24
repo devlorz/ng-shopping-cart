@@ -7,13 +7,13 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   @Output()
+  menuBtnClick = new EventEmitter();
+  @Output()
+  cartBtnClick = new EventEmitter();
+  @Output()
   homeBtnClick = new EventEmitter();
 
   constructor() {}
 
   ngOnInit() {}
-
-  menuClick() {
-    this.homeBtnClick.emit();
-  }
 }

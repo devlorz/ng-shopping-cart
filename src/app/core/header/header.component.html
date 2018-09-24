@@ -1,9 +1,11 @@
 <mat-toolbar color="accent">
   <mat-toolbar-row>
-    <mat-icon class="icon"
-              (click)="menuClick()">menu</mat-icon>
-    <span>Simple Shopping Cart</span>
+    <mat-icon class="icon pointer"
+              (click)="menuBtnClick.emit()">menu</mat-icon>
+    <span class="pointer"
+          (click)="homeBtnClick.emit()">Simple Shopping Cart</span>
     <span class="spacer"></span>
-    <mat-icon class="icon">shopping_cart</mat-icon>
+    <mat-icon class="icon pointer"
+              (click)="cartBtnClick.emit()">shopping_cart</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>

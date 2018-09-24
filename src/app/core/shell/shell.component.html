@@ -5,7 +5,9 @@
     <app-sidenav></app-sidenav>
   </mat-sidenav>
   <mat-sidenav-content>
-    <app-header (homeBtnClick)="sidenav.toggle()"></app-header>
+    <app-header (menuBtnClick)="sidenav.toggle()"
+                (cartBtnClick)="cartClick()"
+                (homeBtnClick)="homeClick()"></app-header>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

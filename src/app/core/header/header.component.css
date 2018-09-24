@@ -1,6 +1,9 @@
+.pointer {
+  cursor: pointer;
+}
+
 .icon {
   padding: 0 10px;
-  cursor: pointer;
 }
 
 .spacer {
