@@ -17,17 +17,26 @@ export const reducer = produce<State, CartActions>((draft, action) => {
     case CartActionTypes.ADD_ONE: {
       const ids = draft.ids as Array<number | string>;
       if (ids.includes(action.payload.productId)) {
-        const item = draft.entities[action.payload.productId];
-        item.quantity += 1;
-        draft.entities[action.payload.productId] = item;
+        draft.entities[action.payload.productId].quantity += 1;
         return;
       } else {
         return cartAdapter.addOne(action.payload, draft);
       }
     }
+    case CartActionTypes.REMOVE_ONE: {
+      const ids = draft.ids as Array<number | string>;
+      if (ids.includes(action.payload)) {
+        if (draft.entities[action.payload].quantity === 1) {
+          return cartAdapter.removeOne(action.payload, draft);
+        }
+        draft.entities[action.payload].quantity -= 1;
+        return;
+      }
+    }
   }
 }, initialState);
 
-const { selectEntities } = cartAdapter.getSelectors();
+const { selectEntities, selectAll } = cartAdapter.getSelectors();
 
 export const selectCartEntities = selectEntities;
+export const selectAllCartItems = selectAll;

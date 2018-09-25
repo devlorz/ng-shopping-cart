@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CartItem } from '../../cart.model';
 import { Product } from '../../../product/product.model';
+import { Observable } from 'rxjs';
+import { CartService } from '../../cart.service';
 
 @Component({
   selector: 'app-cart-list',
@@ -14,32 +16,13 @@ export class CartListComponent implements OnInit {
     'quantity',
     'total'
   ];
-  dataSource: Array<CartItem & Product> = [
-    {
-      total: 40000,
-      quantity: 2,
-      productId: 1,
-      id: 1,
-      title: 'dog',
-      description: 'test description',
-      price: 20000
-    },
-    {
-      total: 20000,
-      quantity: 1,
-      productId: 2,
-      id: 2,
-      title: 'shiba',
-      description: 'test description',
-      price: 20000
-    }
-  ];
+  dataSource$: Observable<Array<CartItem & Product>>;
+  total$: Observable<number>;
 
-  constructor() {}
+  constructor(private cartService: CartService) {}
 
-  ngOnInit() {}
-
-  getTotal() {
-    return '5000000';
+  ngOnInit() {
+    this.dataSource$ = this.cartService.selectItems$;
+    this.total$ = this.cartService.selectTotal$;
   }
 }

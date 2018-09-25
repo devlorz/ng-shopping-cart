@@ -33,11 +33,12 @@ export class ProductListComponent implements OnInit {
   }
 
   onAddToCart(product: Product) {
-    console.log('on add prodcut');
     this.cartService.addProduct(product.id);
   }
 
-  onRemoveFromCart(product: Product) {}
+  onRemoveFromCart(product: Product) {
+    this.cartService.removeProduct(product.id);
+  }
 
   onSearch(text: string) {
     this.products$ = this.productService.getProductByName(text);

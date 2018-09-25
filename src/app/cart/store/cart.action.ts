@@ -3,7 +3,8 @@ import { Action } from '@ngrx/store';
 import { CartItem } from './../cart.model';
 
 export enum CartActionTypes {
-  ADD_ONE = '[Cart] Add One'
+  ADD_ONE = '[Cart] Add One',
+  REMOVE_ONE = '[Cart] Remove One'
 }
 
 export class AddOne implements Action {
@@ -12,4 +13,10 @@ export class AddOne implements Action {
   constructor(public payload: CartItem) {}
 }
 
-export type CartActions = AddOne;
+export class RemoveOne implements Action {
+  readonly type = CartActionTypes.REMOVE_ONE;
+
+  constructor(public payload: number) {}
+}
+
+export type CartActions = AddOne | RemoveOne;
