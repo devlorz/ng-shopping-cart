@@ -23,6 +23,8 @@ export class CartService {
     map(item => item.reduce((acc, cur) => acc + cur.total, 0))
   );
 
+  selectAmount$ = this.selectItems$.pipe(map(item => item.length));
+
   addProduct(productId: Product['id']) {
     const item = createCartItem({ productId });
     this.cartStore.dispatch(new CartAction.AddOne(item));

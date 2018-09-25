@@ -9,4 +9,31 @@ mat-sidenav {
 
 mat-sidenav-content {
   overflow-y: scroll;
+  margin-top: 64px;
+  height: calc(100% - 50px);
+}
+
+app-header {
+  margin-top: -64px;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
+
+router-outlet {
+  margin-top: 64px;
+}
+
+.width-full {
+  width: 100%;
+}
+
+.width-with-sidenav {
+  width: calc(100% - 300px);
+}
+
+@media (min-width: 992px) {
+  app-header {
+    width: calc(100% - 300px);
+  }
 }

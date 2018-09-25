@@ -5,7 +5,9 @@
     <app-sidenav></app-sidenav>
   </mat-sidenav>
   <mat-sidenav-content>
-    <app-header (menuBtnClick)="sidenav.toggle()"
+    <app-header [cartItem]="cartItems$ | async"
+                [ngClass]="{'width-full': isWidthFull, 'width-with-sidenav': isWidthWithSidenav}"
+                (menuBtnClick)="sidenav.toggle(); menuClick()"
                 (cartBtnClick)="cartClick()"
                 (homeBtnClick)="homeClick()"></app-header>
     <router-outlet></router-outlet>

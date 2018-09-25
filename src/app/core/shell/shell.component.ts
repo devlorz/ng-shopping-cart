@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { pluck } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { pluck } from 'rxjs/operators';
+
+import { CartService } from '../../cart/cart.service';
 
 @Component({
   selector: 'app-shell',
@@ -10,14 +12,32 @@ import { Router } from '@angular/router';
 })
 export class ShellComponent implements OnInit {
   public isSmallScreen: boolean;
+  public isFull = false;
 
   get sideNavMode() {
     return this.isSmallScreen ? 'over' : 'side';
   }
 
+  get isWidthFull() {
+    if (!this.isSmallScreen) {
+      return this.isFull;
+    }
+    return false;
+  }
+
+  get isWidthWithSidenav() {
+    if (!this.isSmallScreen) {
+      return !this.isFull;
+    }
+    return false;
+  }
+
+  cartItems$ = this.cartService.selectAmount$;
+
   constructor(
     private breakPointObserver: BreakpointObserver,
-    private router: Router
+    private router: Router,
+    private cartService: CartService
   ) {}
 
   ngOnInit() {
@@ -25,6 +45,12 @@ export class ShellComponent implements OnInit {
       .observe(['(max-width: 991px)'])
       .pipe(pluck('matches'))
       .subscribe((isSmall: boolean) => (this.isSmallScreen = isSmall));
+  }
+
+  menuClick() {
+    if (!this.isSmallScreen) {
+      this.isFull = !this.isFull;
+    }
   }
 
   cartClick() {

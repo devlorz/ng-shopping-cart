@@ -6,6 +6,9 @@
           (click)="homeBtnClick.emit()">Simple Shopping Cart</span>
     <span class="spacer"></span>
     <mat-icon class="icon pointer"
+              [matBadge]="cartItem"
+              [matBadgeHidden]="cartItem === 0"
+              matBadgeColor="warn"
               (click)="cartBtnClick.emit()">shopping_cart</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>
