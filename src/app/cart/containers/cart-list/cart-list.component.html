@@ -1,18 +1,11 @@
 <table mat-table
        [dataSource]="dataSource$ | async"
        class="mat-elevation-z8">
-
-  <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
-
-  <!-- Position Column -->
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
     <mat-footer-cell *matFooterCellDef> Total </mat-footer-cell>
   </ng-container>
-
-  <!-- Name Column -->
   <ng-container matColumnDef="description">
     <mat-header-cell *matHeaderCellDef
                      class="double"> Description </mat-header-cell>
@@ -21,28 +14,37 @@
     <mat-footer-cell *matFooterCellDef
                      class="double"></mat-footer-cell>
   </ng-container>
-
-  <!-- Weight Column -->
   <ng-container matColumnDef="quantity">
     <mat-header-cell *matHeaderCellDef
-                     class="right"> Quantity </mat-header-cell>
+                     class="half right"> Quantity </mat-header-cell>
     <mat-cell *matCellDef="let element"
-              class="right"> {{element.quantity}} </mat-cell>
+              class="half right"> {{element.quantity}} </mat-cell>
     <mat-footer-cell *matFooterCellDef
-                     class="right"></mat-footer-cell>
+                     class="half right"></mat-footer-cell>
   </ng-container>
-
-  <!-- Symbol Column -->
   <ng-container matColumnDef="total">
     <mat-header-cell *matHeaderCellDef
                      class="right"> Total </mat-header-cell>
     <mat-cell *matCellDef="let element"
-              class="right"> {{ element.total | number }} </mat-cell>
+              class="right"> {{ element.total | number }}
+    </mat-cell>
     <mat-footer-cell *matFooterCellDef
                      class="right"> {{ total$ | async | number }} </mat-footer-cell>
   </ng-container>
+  <ng-container matColumnDef="delete">
+    <mat-header-cell *matHeaderCellDef
+                     class="half right">Remove</mat-header-cell>
+    <mat-cell *matCellDef="let element"
+              class="half right">
+      <mat-icon class="btn-delete pointer"
+                (click)="onDelete(element.id)">delete_forever</mat-icon>
+    </mat-cell>
+    <mat-footer-cell *matFooterCellDef
+                     class="half right"></mat-footer-cell>
+  </ng-container>
 
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-header-row *matHeaderRowDef="displayedColumns"
+                  class="header-row"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   <mat-footer-row *matFooterRowDef="displayedColumns"
                   class="footer-row"></mat-footer-row>

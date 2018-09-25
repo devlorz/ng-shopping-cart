@@ -14,7 +14,8 @@ export class CartListComponent implements OnInit {
     'title',
     'description',
     'quantity',
-    'total'
+    'total',
+    'delete'
   ];
   dataSource$: Observable<Array<CartItem & Product>>;
   total$: Observable<number>;
@@ -24,5 +25,9 @@ export class CartListComponent implements OnInit {
   ngOnInit() {
     this.dataSource$ = this.cartService.selectItems$;
     this.total$ = this.cartService.selectTotal$;
+  }
+
+  onDelete(id: number) {
+    this.cartService.removeProduct(id);
   }
 }
