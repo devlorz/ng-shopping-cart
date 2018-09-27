@@ -57,7 +57,9 @@ export class ProductListComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-          this.cartService.addProduct(result.id, result.amount);
+          if (result) {
+            this.cartService.addProduct(result.id, result.amount);
+          }
         });
       });
   }

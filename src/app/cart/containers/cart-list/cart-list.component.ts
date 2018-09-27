@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { Observable } from 'rxjs';
+
 import { CartItem } from '../../cart.model';
 import { Product } from '../../../product/product.model';
-import { Observable } from 'rxjs';
 import { CartService } from '../../cart.service';
+import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
 
 @Component({
   selector: 'app-cart-list',
@@ -20,7 +23,7 @@ export class CartListComponent implements OnInit {
   dataSource$: Observable<Array<CartItem & Product>>;
   total$: Observable<number>;
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.dataSource$ = this.cartService.selectItems$;
@@ -28,7 +31,14 @@ export class CartListComponent implements OnInit {
   }
 
   onDelete(id: number) {
-    this.cartService.removeProduct(id);
+    const dialog = this.dialog.open(DialogComponent, {
+      data: 'Are you sure you want to remove this product?'
+    });
+    dialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.cartService.removeProduct(id);
+      }
+    });
   }
 
   onQuantityChange(quantity: number, id: number) {
