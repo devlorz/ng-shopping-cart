@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AngularFireModule } from '@angular/fire';
 
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
@@ -22,10 +23,10 @@ import { reducer } from './cart/store/cart.reducer';
     StoreDevtoolsModule.instrument({
       name: 'Shopping Cart Store DevTools',
       logOnly: environment.production
-    })
+    }),
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   declarations: [AppComponent],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

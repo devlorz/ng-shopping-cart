@@ -16,6 +16,7 @@
     "@angular/common": "^6.1.0",
     "@angular/compiler": "^6.1.0",
     "@angular/core": "^6.1.0",
+    "@angular/fire": "^5.0.2",
     "@angular/forms": "^6.1.0",
     "@angular/http": "^6.1.0",
     "@angular/material": "^6.4.7",
@@ -27,6 +28,7 @@
     "@ngrx/store-devtools": "^6.1.0",
     "@retailify/ngx-mat-numberpicker": "^1.0.1",
     "core-js": "^2.5.4",
+    "firebase": "^5.5.1",
     "immer": "^1.7.1",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"
