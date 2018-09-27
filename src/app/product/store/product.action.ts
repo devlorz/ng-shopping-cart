@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 import { Product } from '../product.model';
 
 export const ProductActionTypes = {
-  SET_ALL_PRODUCTS: 'SET_ALL_PRODUCTS'
+  SET_ALL_PRODUCTS: '[Product] Set All Products'
 };
 
 export class SetAllProducts implements Action {
