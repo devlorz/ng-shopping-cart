@@ -39,4 +39,12 @@ export class ProductService {
         )
       );
   }
+
+  getProductById(productId: number) {
+    return this.productStore
+      .select(ProductSelector.getAllProducts)
+      .pipe(
+        map(products => products.find(product => product.id === productId))
+      );
+  }
 }

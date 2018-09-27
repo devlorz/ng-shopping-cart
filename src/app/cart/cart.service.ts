@@ -25,12 +25,12 @@ export class CartService {
 
   selectAmount$ = this.selectItems$.pipe(map(item => item.length));
 
-  addProduct(productId: Product['id']) {
-    const item = createCartItem({ productId });
-    this.cartStore.dispatch(new CartAction.AddOne(item));
+  addProduct(productId: Product['id'], quantity = 1) {
+    const item = createCartItem({ productId, quantity });
+    this.cartStore.dispatch(new CartAction.AddItem(item));
   }
 
   removeProduct(productId: Product['id']) {
-    this.cartStore.dispatch(new CartAction.RemoveOne(productId));
+    this.cartStore.dispatch(new CartAction.RemoveItem(productId));
   }
 }

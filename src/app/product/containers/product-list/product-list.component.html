@@ -9,7 +9,8 @@
       <app-product *ngFor="let product of (products$ | async)"
                    [product]="product"
                    (add)="onAddToCart($event)"
-                   (subtract)="onRemoveFromCart($event)"></app-product>
+                   (subtract)="onRemoveFromCart($event)"
+                   (click)="onShowProductDetail(product.id)"></app-product>
     </div>
   </div>
 

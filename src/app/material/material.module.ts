@@ -9,8 +9,10 @@ import {
   MatToolbarModule,
   MatTableModule,
   MatListModule,
-  MatBadgeModule
+  MatBadgeModule,
+  MatDialogModule
 } from '@angular/material';
+import { NumberPickerModule } from '@retailify/ngx-mat-numberpicker';
 
 @NgModule({
   imports: [
@@ -22,7 +24,9 @@ import {
     MatToolbarModule,
     MatListModule,
     MatTableModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatDialogModule,
+    NumberPickerModule
   ],
   exports: [
     MatInputModule,
@@ -33,7 +37,9 @@ import {
     MatToolbarModule,
     MatListModule,
     MatTableModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatDialogModule,
+    NumberPickerModule
   ]
 })
 export class MaterialModule {}

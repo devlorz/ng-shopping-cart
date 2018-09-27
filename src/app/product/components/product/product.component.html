@@ -1,17 +1,18 @@
 <mat-card class="card-container">
-  <mat-card-title>{{ product.title }}</mat-card-title>
   <img mat-card-image
        src="https://material.angular.io/assets/img/examples/shiba2.jpg"
        alt="Photo of a Shiba Inu">
+  <mat-card-subtitle>{{ product.title.toUpperCase() }}</mat-card-subtitle>
   <mat-card-content>
+    <h3>Price: {{ product.price | number }}</h3>
     <p>{{ product.description }}</p>
   </mat-card-content>
-  <mat-card-actions>
+  <!-- <mat-card-actions>
     <div class="pull-right">
       <button mat-button
               (click)="addToCart()">ADD</button>
       <button mat-button
               (click)="removeFromCart()">REMOVE</button>
     </div>
-  </mat-card-actions>
+  </mat-card-actions> -->
 </mat-card>

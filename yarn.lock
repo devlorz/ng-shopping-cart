@@ -293,6 +293,10 @@
     tree-kill "^1.0.0"
     webpack-sources "^1.1.0"
 
+"@retailify/ngx-mat-numberpicker@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@retailify/ngx-mat-numberpicker/-/ngx-mat-numberpicker-1.0.1.tgz#7ea8b379ac57f26f3d691db9aeb855b5094ecacf"
+
 "@schematics/angular@0.8.2":
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-0.8.2.tgz#f75978f746a245826b70c214f11b15af7b249838"

@@ -14,23 +14,26 @@ const initialState = cartAdapter.getInitialState();
 
 export const reducer = produce<State, CartActions>((draft, action) => {
   switch (action.type) {
-    case CartActionTypes.ADD_ONE: {
+    case CartActionTypes.ADD_ITEM: {
       const ids = draft.ids as Array<number | string>;
       if (ids.includes(action.payload.productId)) {
-        draft.entities[action.payload.productId].quantity += 1;
+        draft.entities[action.payload.productId].quantity +=
+          action.payload.quantity;
         return;
       } else {
         return cartAdapter.addOne(action.payload, draft);
       }
     }
-    case CartActionTypes.REMOVE_ONE: {
+    case CartActionTypes.REMOVE_ITEM: {
       const ids = draft.ids as Array<number | string>;
       if (ids.includes(action.payload)) {
-        if (draft.entities[action.payload].quantity === 1) {
-          return cartAdapter.removeOne(action.payload, draft);
-        }
-        draft.entities[action.payload].quantity -= 1;
-        return;
+        return cartAdapter.removeOne(action.payload, draft);
+        // if (draft.entities[action.payload].quantity === 1) {
+        //   return cartAdapter.removeOne(action.payload, draft);
+        // }
+        // }
+        // draft.entities[action.payload].quantity -= 1;
+        // return;
       }
     }
   }

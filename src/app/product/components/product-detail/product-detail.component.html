@@ -1,0 +1,16 @@
+<div class="wrapper">
+  <img src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+       alt="Photo of a Shiba Inu"
+       class="image">
+  <h3>{{ product.title.toUpperCase() }}</h3>
+  <h3>Price: {{ product.price | number }}</h3>
+  <p>{{ product.description }}</p>
+  <div class="footer">
+    <ngx-mat-numberpicker [min]="1"
+                          [max]="99"
+                          [default]="1"
+                          [disabled]="true"
+                          (onChange)="onAmountChange($event)"></ngx-mat-numberpicker>
+    <button mat-button (click)="onAddToCart()">Add to cart</button>
+  </div>
+</div>

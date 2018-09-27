@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { Product } from '../../product.model';
 import { ProductService } from '../../product.service';
-import { startWith, switchMap } from 'rxjs/operators';
 import { CartService } from '../../../cart/cart.service';
+import { ProductDetailWrapperComponent } from '../product-detail-wrapper/product-detail-wrapper.component';
 
 @Component({
   selector: 'app-product-list',
@@ -19,7 +21,8 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private cartService: CartService
+    private cartService: CartService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -42,5 +45,20 @@ export class ProductListComponent implements OnInit {
 
   onSearch(text: string) {
     this.products$ = this.productService.getProductByName(text);
+  }
+
+  onShowProductDetail(productId: number) {
+    this.productService
+      .getProductById(productId)
+      .pipe(take(1))
+      .subscribe(product => {
+        const dialogRef = this.dialog.open(ProductDetailWrapperComponent, {
+          data: product
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          this.cartService.addProduct(result.id, result.amount);
+        });
+      });
   }
 }
