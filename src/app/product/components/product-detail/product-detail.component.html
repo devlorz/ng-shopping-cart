@@ -6,11 +6,9 @@
   <h3>Price: {{ product.price | number }}</h3>
   <p>{{ product.description }}</p>
   <div class="footer">
-    <ngx-mat-numberpicker [min]="1"
-                          [max]="99"
-                          [default]="1"
-                          [disabled]="true"
-                          (onChange)="onAmountChange($event)"></ngx-mat-numberpicker>
-    <button mat-button (click)="onAddToCart()">Add to cart</button>
+    <app-number-picker [default]="1"
+                       (valueChange)="onAmountChange($event)"></app-number-picker>
+    <button mat-button
+            (click)="onAddToCart()">Add to cart</button>
   </div>
 </div>

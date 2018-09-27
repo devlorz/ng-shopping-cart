@@ -2,9 +2,12 @@
        [dataSource]="dataSource$ | async"
        class="mat-elevation-z8">
   <ng-container matColumnDef="title">
-    <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
-    <mat-footer-cell *matFooterCellDef> Total </mat-footer-cell>
+    <mat-header-cell *matHeaderCellDef
+                     class="double"> Title </mat-header-cell>
+    <mat-cell *matCellDef="let element"
+              class="double"> {{element.title}} </mat-cell>
+    <mat-footer-cell *matFooterCellDef
+                     class="double"> Total </mat-footer-cell>
   </ng-container>
   <ng-container matColumnDef="description">
     <mat-header-cell *matHeaderCellDef
@@ -16,15 +19,18 @@
   </ng-container>
   <ng-container matColumnDef="quantity">
     <mat-header-cell *matHeaderCellDef
-                     class="half right"> Quantity </mat-header-cell>
+                     class="center"> Quantity </mat-header-cell>
     <mat-cell *matCellDef="let element"
-              class="half right"> {{element.quantity}} </mat-cell>
+              class="center">
+      <app-number-picker [default]="element.quantity"
+                         (valueChange)="onQuantityChange($event,element.id)"></app-number-picker>
+    </mat-cell>
     <mat-footer-cell *matFooterCellDef
-                     class="half right"></mat-footer-cell>
+                     class="center"></mat-footer-cell>
   </ng-container>
   <ng-container matColumnDef="total">
     <mat-header-cell *matHeaderCellDef
-                     class="right"> Total </mat-header-cell>
+                     class="center"> Total </mat-header-cell>
     <mat-cell *matCellDef="let element"
               class="right"> {{ element.total | number }}
     </mat-cell>

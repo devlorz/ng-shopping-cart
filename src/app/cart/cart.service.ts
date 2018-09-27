@@ -33,4 +33,13 @@ export class CartService {
   removeProduct(productId: Product['id']) {
     this.cartStore.dispatch(new CartAction.RemoveItem(productId));
   }
+
+  adjustQuantity(id: Product['id'], quantity: number) {
+    this.cartStore.dispatch(
+      new CartAction.AdjustQuantity({
+        id,
+        quantity
+      })
+    );
+  }
 }

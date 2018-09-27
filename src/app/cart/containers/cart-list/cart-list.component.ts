@@ -12,7 +12,7 @@ import { CartService } from '../../cart.service';
 export class CartListComponent implements OnInit {
   displayedColumns: Array<string> = [
     'title',
-    'description',
+    // 'description',
     'quantity',
     'total',
     'delete'
@@ -29,5 +29,9 @@ export class CartListComponent implements OnInit {
 
   onDelete(id: number) {
     this.cartService.removeProduct(id);
+  }
+
+  onQuantityChange(quantity: number, id: number) {
+    this.cartService.adjustQuantity(id, quantity);
   }
 }

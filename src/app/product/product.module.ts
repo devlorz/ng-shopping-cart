@@ -10,6 +10,7 @@ import { reducer } from './store/product.reducer';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { ProductDetailWrapperComponent } from './containers/product-detail-wrapper/product-detail-wrapper.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { ProductDetailWrapperComponent } from './containers/product-detail-wrapp
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    SharedModule,
     StoreModule.forFeature('product', reducer)
   ],
   declarations: [

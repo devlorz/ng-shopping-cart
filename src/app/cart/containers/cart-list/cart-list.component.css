@@ -11,6 +11,11 @@ table {
   justify-content: flex-end;
 }
 
+.center {
+  display: flex;
+  justify-content: center;
+}
+
 .double {
   display: flex;
   flex-grow: 2;
@@ -24,4 +29,14 @@ table {
 .btn-delete {
   color: red;
   margin-right: 5px;
+}
+
+app-number-picker {
+  max-width: 70px;
+}
+
+@media (min-width: 991px) {
+  app-number-picker {
+    max-width: 100px;
+  }
 }

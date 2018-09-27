@@ -24,6 +24,14 @@ export const reducer = produce<State, CartActions>((draft, action) => {
         return cartAdapter.addOne(action.payload, draft);
       }
     }
+    case CartActionTypes.ADJUST_QUANTITY: {
+      const ids = draft.ids as Array<number | string>;
+      if (ids.includes(action.payload.id)) {
+        draft.entities[action.payload.id].quantity = action.payload.quantity;
+        return;
+      }
+      return;
+    }
     case CartActionTypes.REMOVE_ITEM: {
       const ids = draft.ids as Array<number | string>;
       if (ids.includes(action.payload)) {
@@ -35,6 +43,7 @@ export const reducer = produce<State, CartActions>((draft, action) => {
         // draft.entities[action.payload].quantity -= 1;
         // return;
       }
+      return;
     }
   }
 }, initialState);
