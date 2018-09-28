@@ -1,3 +1,4 @@
+import { AuthDataService } from './../auth-data.service';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of, from } from 'rxjs';
@@ -16,7 +17,10 @@ import { User } from '../user.model';
 
 @Injectable()
 export class AuthEffects {
-  constructor(private actions$: Actions, private authService: AuthService) {}
+  constructor(
+    private actions$: Actions,
+    private authService: AuthDataService
+  ) {}
 
   @Effect()
   login$ = this.actions$.pipe(

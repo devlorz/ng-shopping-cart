@@ -13,10 +13,6 @@ export class SidenavComponent implements OnInit {
     this.auth.getUser();
   }
 
-  onSignup() {
-    this.auth.signup('test@mail.com', 'password');
-  }
-
   onLogin() {
     this.auth.signIn();
   }
