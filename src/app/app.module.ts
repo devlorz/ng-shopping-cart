@@ -4,12 +4,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AngularFireModule } from '@angular/fire';
+import { EffectsModule } from '@ngrx/effects';
 
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
-import { reducer } from './cart/store/cart.reducer';
+import { reducers } from './app.reducer';
+import { AuthEffects } from './core/store/auth.effect';
 
 @NgModule({
   imports: [
@@ -17,9 +19,8 @@ import { reducer } from './cart/store/cart.reducer';
     BrowserAnimationsModule,
     AppRoutingModule,
     CoreModule,
-    StoreModule.forRoot({
-      cart: reducer
-    }),
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument({
       name: 'Shopping Cart Store DevTools',
       logOnly: environment.production

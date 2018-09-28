@@ -1,8 +1,8 @@
-<div *ngIf="auth.user | async; then authenticated else guest">
+<div *ngIf="auth.getUserInfo() | async as user; then authenticated else guest">
   <!-- template will replace this div -->
 </div>
 <ng-template #authenticated>
-  <div *ngIf="auth.user | async as user">
+  <div *ngIf="auth.getUserInfo() | async as user">
     <div class="sidenav-title">
       <mat-list>
         <mat-list-item class="sidenav-title-text">Welcome, {{ user.displayName }}</mat-list-item>
@@ -13,7 +13,7 @@
       <mat-list-item class="sidenav-menu-item">
         <button mat-button
                 class="sidenav-menu-button"
-                (click)="auth.signOut()">
+                (click)="onLogOut()">
           <span>
             LOGOUT
           </span>
@@ -40,7 +40,7 @@
     <mat-list-item class="sidenav-menu-item">
       <button mat-button
               class="sidenav-menu-button"
-              (click)="auth.googleLogin()">
+              (click)="onLogin()">
         <span>
           LOGIN
         </span>

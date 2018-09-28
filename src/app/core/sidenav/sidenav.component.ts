@@ -9,9 +9,19 @@ import { AuthService } from '../auth.service';
 export class SidenavComponent implements OnInit {
   constructor(public auth: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.auth.getUser();
+  }
 
   onSignup() {
     this.auth.signup('test@mail.com', 'password');
+  }
+
+  onLogin() {
+    this.auth.signIn();
+  }
+
+  onLogOut() {
+    this.auth.signOut();
   }
 }

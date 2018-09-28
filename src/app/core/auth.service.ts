@@ -1,30 +1,48 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
-import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
-import { User } from './user.model';
+import { State as AuthState } from './store/auth.reducer';
+import { Login, Logout, GetUser } from './store/auth.action';
+import { getUser as getUserState } from './store/auth.selector';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  user: Observable<any>;
+  constructor(
+    private afAuth: AngularFireAuth,
+    private store: Store<AuthState>
+  ) {}
 
-  constructor(private afAuth: AngularFireAuth) {
-    this.user = this.afAuth.authState;
+  getUserInfo() {
+    return this.store.select(getUserState);
   }
 
-  googleLogin() {
-    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
-    // const provider = new auth.GoogleAuthProvider();
-    // return this.oAuthLogin(provider);
+  getUser() {
+    this.store.dispatch(new GetUser());
+  }
+
+  signIn() {
+    this.store.dispatch(new Login());
   }
 
   signOut() {
-    this.afAuth.auth.signOut().then(() => {
-      // this.router.navigate(['/']);
-    });
+    this.store.dispatch(new Logout());
+  }
+
+  getUserFromFirebaseAuth() {
+    return this.afAuth.authState;
+  }
+
+  googleLogin() {
+    const provider = new auth.GoogleAuthProvider();
+    return this.oAuthLogin(provider);
+  }
+
+  firebaseSignOut() {
+    this.afAuth.auth.signOut();
   }
 
   signup(email: string, password: string) {
@@ -39,8 +57,6 @@ export class AuthService {
   }
 
   private oAuthLogin(provider) {
-    return this.afAuth.auth.signInWithPopup(provider).then(credential => {
-      console.log(credential);
-    });
+    return this.afAuth.auth.signInWithPopup(provider);
   }
 }
