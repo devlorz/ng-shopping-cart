@@ -6,6 +6,11 @@
                       [total]="total$ | async"
                       (delete)="onDelete($event)"
                       (quantityChange)="onQuantityChange($event)"></app-cart-table>
+      <div class="footer">
+        <button mat-raised-button
+                color="accent"
+                (click)="onCheckout()">Checkout</button>
+      </div>
     </div>
   </div>
   <ng-template #empty>

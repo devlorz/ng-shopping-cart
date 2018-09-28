@@ -1,3 +1,4 @@
+import { CartEffects } from './cart/store/cart.effect';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,7 +21,7 @@ import { AuthEffects } from './core/store/auth.effect';
     AppRoutingModule,
     CoreModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, CartEffects]),
     StoreDevtoolsModule.instrument({
       name: 'Shopping Cart Store DevTools',
       logOnly: environment.production

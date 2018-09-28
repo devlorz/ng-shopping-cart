@@ -6,7 +6,8 @@ import { Product } from '../product/product.model';
 import { State as CartState } from './store/cart.reducer';
 import * as CartSelector from './store/cart.selector';
 import * as CartAction from './store/cart.action';
-import { createCartItem } from './cart.model';
+import { createCartItem, CartItem } from './cart.model';
+import { createOrder } from './order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +42,10 @@ export class CartService {
         quantity
       })
     );
+  }
+
+  confirmOrder(items: Array<CartItem & Product>) {
+    const order = createOrder(items);
+    this.cartStore.dispatch(new CartAction.ConfirmOrder(order));
   }
 }

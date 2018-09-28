@@ -1,18 +1,16 @@
 import { AuthDataService } from './../auth-data.service';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Observable, of, from } from 'rxjs';
+import { of, from } from 'rxjs';
 import { exhaustMap, map, catchError, tap } from 'rxjs/operators';
 import { User as FirebaseUser } from 'firebase';
 
 import {
-  AuthActions,
   AuthActionTypes,
   LoginSuccess,
   LoginFailure,
   GetUserSuccess
 } from './auth.action';
-import { AuthService } from '../auth.service';
 import { User } from '../user.model';
 
 @Injectable()

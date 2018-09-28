@@ -14,7 +14,7 @@ const initialState = cartAdapter.getInitialState();
 
 export const reducer = produce<State, CartActions>((draft, action) => {
   switch (action.type) {
-    case CartActionTypes.ADD_ITEM: {
+    case CartActionTypes.AddItem: {
       const ids = draft.ids as Array<number | string>;
       if (ids.includes(action.payload.productId)) {
         draft.entities[action.payload.productId].quantity +=
@@ -24,7 +24,7 @@ export const reducer = produce<State, CartActions>((draft, action) => {
         return cartAdapter.addOne(action.payload, draft);
       }
     }
-    case CartActionTypes.ADJUST_QUANTITY: {
+    case CartActionTypes.AdjustQuantity: {
       const ids = draft.ids as Array<number | string>;
       if (ids.includes(action.payload.id)) {
         draft.entities[action.payload.id].quantity = action.payload.quantity;
@@ -32,18 +32,15 @@ export const reducer = produce<State, CartActions>((draft, action) => {
       }
       return;
     }
-    case CartActionTypes.REMOVE_ITEM: {
+    case CartActionTypes.RemoveItem: {
       const ids = draft.ids as Array<number | string>;
       if (ids.includes(action.payload)) {
         return cartAdapter.removeOne(action.payload, draft);
-        // if (draft.entities[action.payload].quantity === 1) {
-        //   return cartAdapter.removeOne(action.payload, draft);
-        // }
-        // }
-        // draft.entities[action.payload].quantity -= 1;
-        // return;
       }
       return;
+    }
+    case CartActionTypes.ConfirmOrderSuccess: {
+      return initialState;
     }
   }
 }, initialState);
