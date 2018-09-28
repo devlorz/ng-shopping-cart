@@ -1,42 +1,11 @@
-table {
-  width: 100%;
+.wrapper {
+  width: 80%;
+  max-width: 800px;
+  margin: auto;
 }
 
-.footer-row {
-  font-weight: bold;
-}
-
-.right {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-}
-
-.double {
-  display: flex;
-  flex-grow: 2;
-}
-
-.half {
-  display: flex;
-  flex-grow: 0.75;
-}
-
-.btn-delete {
-  color: red;
-  margin-right: 5px;
-}
-
-app-number-picker {
-  max-width: 70px;
-}
-
-@media (min-width: 991px) {
-  app-number-picker {
-    max-width: 100px;
+@media (max-width: 991px) {
+  .wrapper {
+    width: 90%;
   }
 }

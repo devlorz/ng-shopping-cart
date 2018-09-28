@@ -1,57 +1,14 @@
-<table mat-table
-       [dataSource]="dataSource$ | async"
-       class="mat-elevation-z8">
-  <ng-container matColumnDef="title">
-    <mat-header-cell *matHeaderCellDef
-                     class="double"> Title </mat-header-cell>
-    <mat-cell *matCellDef="let element"
-              class="double"> {{element.title}} </mat-cell>
-    <mat-footer-cell *matFooterCellDef
-                     class="double"> Total </mat-footer-cell>
-  </ng-container>
-  <ng-container matColumnDef="description">
-    <mat-header-cell *matHeaderCellDef
-                     class="double"> Description </mat-header-cell>
-    <mat-cell *matCellDef="let element"
-              class="double"> {{element.description}} </mat-cell>
-    <mat-footer-cell *matFooterCellDef
-                     class="double"></mat-footer-cell>
-  </ng-container>
-  <ng-container matColumnDef="quantity">
-    <mat-header-cell *matHeaderCellDef
-                     class="center"> Quantity </mat-header-cell>
-    <mat-cell *matCellDef="let element"
-              class="center">
-      <app-number-picker [default]="element.quantity"
-                         (valueChange)="onQuantityChange($event,element.id)"></app-number-picker>
-    </mat-cell>
-    <mat-footer-cell *matFooterCellDef
-                     class="center"></mat-footer-cell>
-  </ng-container>
-  <ng-container matColumnDef="total">
-    <mat-header-cell *matHeaderCellDef
-                     class="center"> Total </mat-header-cell>
-    <mat-cell *matCellDef="let element"
-              class="right"> {{ element.total | number }}
-    </mat-cell>
-    <mat-footer-cell *matFooterCellDef
-                     class="right"> {{ total$ | async | number }} </mat-footer-cell>
-  </ng-container>
-  <ng-container matColumnDef="delete">
-    <mat-header-cell *matHeaderCellDef
-                     class="half right">Remove</mat-header-cell>
-    <mat-cell *matCellDef="let element"
-              class="half right">
-      <mat-icon class="btn-delete pointer"
-                (click)="onDelete(element.id)">delete_forever</mat-icon>
-    </mat-cell>
-    <mat-footer-cell *matFooterCellDef
-                     class="half right"></mat-footer-cell>
-  </ng-container>
-
-  <mat-header-row *matHeaderRowDef="displayedColumns"
-                  class="header-row"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  <mat-footer-row *matFooterRowDef="displayedColumns"
-                  class="footer-row"></mat-footer-row>
-</table>
+<div class="wrapper">
+  <h2>Your Cart</h2>
+  <div *ngIf="dataSource$ | async as dataSource">
+    <div *ngIf="dataSource.length > 0; else empty">
+      <app-cart-table [dataSource]="dataSource"
+                      [total]="total$ | async"
+                      (delete)="onDelete($event)"
+                      (quantityChange)="onQuantityChange($event)"></app-cart-table>
+    </div>
+  </div>
+  <ng-template #empty>
+    <h3>Your cart is empty</h3>
+  </ng-template>
+</div>

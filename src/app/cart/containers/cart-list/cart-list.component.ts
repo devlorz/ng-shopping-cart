@@ -13,13 +13,6 @@ import { DialogComponent } from '../../../shared/components/dialog/dialog.compon
   styleUrls: ['./cart-list.component.css']
 })
 export class CartListComponent implements OnInit {
-  displayedColumns: Array<string> = [
-    'title',
-    // 'description',
-    'quantity',
-    'total',
-    'delete'
-  ];
   dataSource$: Observable<Array<CartItem & Product>>;
   total$: Observable<number>;
 
@@ -41,7 +34,7 @@ export class CartListComponent implements OnInit {
     });
   }
 
-  onQuantityChange(quantity: number, id: number) {
+  onQuantityChange({ id, quantity }: { id: number; quantity: number }) {
     this.cartService.adjustQuantity(id, quantity);
   }
 }
