@@ -43,6 +43,8 @@ export class ConfirmOrderSuccess implements Action {
 
 export class ConfirmOrderFail implements Action {
   readonly type = CartActionTypes.ConfirmOrderFail;
+
+  constructor(public payload: any) {}
 }
 
 export type CartActions =

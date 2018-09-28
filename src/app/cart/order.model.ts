@@ -10,7 +10,9 @@ export interface OrderItem {
 }
 
 export function createOrder(items: Array<CartItem & Product>) {
+  let grandTotal = 0;
   const orderItems = items.map((item, index) => {
+    grandTotal += item.total;
     return {
       id: index + 1,
       title: item.title,
@@ -21,11 +23,13 @@ export function createOrder(items: Array<CartItem & Product>) {
   });
   return {
     id: 0,
-    orderItems
+    orderItems,
+    grandTotal
   } as Order;
 }
 
 export interface Order {
   id: number;
+  grandTotal: number;
   orderItems: Array<OrderItem>;
 }
