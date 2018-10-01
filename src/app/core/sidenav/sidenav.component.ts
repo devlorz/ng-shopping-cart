@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from '../auth.service';
@@ -14,7 +15,11 @@ export class SidenavComponent implements OnInit, OnDestroy {
   loadingDialogRef: MatDialogRef<LoadingComponent>;
   loadingSubscription: Subscription;
 
-  constructor(public auth: AuthService, private dialog: MatDialog) {}
+  constructor(
+    public auth: AuthService,
+    private dialog: MatDialog,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.auth.getUser();
@@ -39,5 +44,9 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
   onLogOut() {
     this.auth.signOut();
+  }
+
+  onClickOrder() {
+    this.router.navigate(['order']);
   }
 }

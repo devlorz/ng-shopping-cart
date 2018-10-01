@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { Product } from './../../product/product.model';
 import { CartItem } from './../cart.model';
-import { Order } from '../order.model';
+import { Order } from '../../order/order.model';
 
 export enum CartActionTypes {
   AddItem = '[Cart] Add Item',

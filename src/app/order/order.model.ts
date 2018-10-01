@@ -1,5 +1,5 @@
 import { Product } from '../product/product.model';
-import { CartItem } from './cart.model';
+import { CartItem } from '../cart/cart.model';
 
 export interface OrderItem {
   id: number;

@@ -6,7 +6,7 @@ import {
 import { firestore } from 'firebase';
 import { from } from 'rxjs';
 
-import { Order } from './order.model';
+import { Order } from '../order/order.model';
 
 @Injectable({
   providedIn: 'root'

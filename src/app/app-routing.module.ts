@@ -11,6 +11,10 @@ const routes: Routes = [
     {
       path: 'cart',
       loadChildren: './cart/cart.module#CartModule'
+    },
+    {
+      path: 'order',
+      loadChildren: './order/order.module#OrderModule'
     }
   ]),
   // Fallback when no prior route is matched

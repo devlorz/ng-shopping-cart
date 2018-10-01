@@ -7,7 +7,7 @@ import { State as CartState } from './store/cart.reducer';
 import * as CartSelector from './store/cart.selector';
 import * as CartAction from './store/cart.action';
 import { createCartItem, CartItem } from './cart.model';
-import { createOrder } from './order.model';
+import { createOrder } from '../order/order.model';
 
 @Injectable({
   providedIn: 'root'
