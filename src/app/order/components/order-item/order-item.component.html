@@ -1,0 +1,38 @@
+<h3>Order Number #</h3>
+<table mat-table
+       [dataSource]="dataSource"
+       class="mat-elevation-z8">
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef
+                     class="double"> Title </mat-header-cell>
+    <mat-cell *matCellDef="let element"
+              class="double"> {{element.title}} </mat-cell>
+    <mat-footer-cell *matFooterCellDef
+                     class="double"> Total </mat-footer-cell>
+  </ng-container>
+  <ng-container matColumnDef="quantity">
+    <mat-header-cell *matHeaderCellDef
+                     class="center"> Quantity </mat-header-cell>
+    <mat-cell *matCellDef="let element"
+              class="center">
+      {{ element.quantity }}
+    </mat-cell>
+    <mat-footer-cell *matFooterCellDef
+                     class="center"></mat-footer-cell>
+  </ng-container>
+  <ng-container matColumnDef="total">
+    <mat-header-cell *matHeaderCellDef
+                     class="center"> Total </mat-header-cell>
+    <mat-cell *matCellDef="let element"
+              class="right"> {{ element.total | number }}
+    </mat-cell>
+    <mat-footer-cell *matFooterCellDef
+                     class="right"> {{ total | number }} </mat-footer-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"
+                  class="header-row"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  <mat-footer-row *matFooterRowDef="displayedColumns"
+                  class="footer-row"></mat-footer-row>
+</table>

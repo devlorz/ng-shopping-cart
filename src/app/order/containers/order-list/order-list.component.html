@@ -1,6 +1,12 @@
 <div class="wrapper">
   <h2>Your Order</h2>
-
+  <div *ngIf="orders$ | async as dataSource">
+    <div *ngIf="dataSource.length > 0; else empty">
+      <app-order-item *ngFor="let item of dataSource"
+                      [dataSource]="item.orderItems"
+                      [total]="item.grandTotal"></app-order-item>
+    </div>
+  </div>
   <ng-template #empty>
     <h3>You have no order.</h3>
   </ng-template>
