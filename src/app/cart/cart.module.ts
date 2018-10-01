@@ -7,10 +7,11 @@ import { CartListComponent } from './containers/cart-list/cart-list.component';
 import { MaterialModule } from '../material/material.module';
 import { DialogComponent } from '../shared/components/dialog/dialog.component';
 import { CartTableComponent } from './components/cart-table/cart-table.component';
+import { LoadingComponent } from '../shared/components/loading/loading.component';
 
 @NgModule({
   imports: [CommonModule, CartRoutingModule, MaterialModule, SharedModule],
   declarations: [CartListComponent, CartTableComponent],
-  entryComponents: [DialogComponent]
+  entryComponents: [DialogComponent, LoadingComponent]
 })
 export class CartModule {}

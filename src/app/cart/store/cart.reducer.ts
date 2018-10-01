@@ -8,9 +8,13 @@ const cartAdapter = createEntityAdapter<CartItem>({
   selectId: (cart: CartItem) => cart.productId
 });
 
-export interface State extends EntityState<CartItem> {}
+export interface State extends EntityState<CartItem> {
+  isloading: boolean;
+}
 
-const initialState = cartAdapter.getInitialState();
+const initialState = cartAdapter.getInitialState({
+  isloading: false
+});
 
 export const reducer = produce<State, CartActions>((draft, action) => {
   switch (action.type) {
@@ -39,8 +43,16 @@ export const reducer = produce<State, CartActions>((draft, action) => {
       }
       return;
     }
+    case CartActionTypes.ConfirmOrder: {
+      draft.isloading = true;
+      return;
+    }
     case CartActionTypes.ConfirmOrderSuccess: {
       return initialState;
+    }
+    case CartActionTypes.ConfirmOrderFail: {
+      draft.isloading = false;
+      return;
     }
   }
 }, initialState);

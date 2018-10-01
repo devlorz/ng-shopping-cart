@@ -9,7 +9,8 @@ import {
   AuthActionTypes,
   LoginSuccess,
   LoginFailure,
-  GetUserSuccess
+  GetUserSuccess,
+  GetUserFailure
 } from './auth.action';
 import { User } from '../user.model';
 
@@ -62,7 +63,7 @@ export class AuthEffects {
           };
           return new GetUserSuccess(user);
         }),
-        catchError(error => of(new LoginFailure(error)))
+        catchError(error => of(new GetUserFailure(error)))
       )
     )
   );

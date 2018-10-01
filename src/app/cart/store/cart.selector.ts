@@ -24,3 +24,8 @@ export const getCartsWithDetail = createSelector(
       };
     })
 );
+
+export const getLoadingStatus = createSelector(
+  getCartState,
+  state => state.isloading
+);

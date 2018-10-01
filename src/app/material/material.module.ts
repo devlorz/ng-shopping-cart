@@ -10,7 +10,8 @@ import {
   MatTableModule,
   MatListModule,
   MatBadgeModule,
-  MatDialogModule
+  MatDialogModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { NumberPickerModule } from '@retailify/ngx-mat-numberpicker';
 
@@ -26,6 +27,7 @@ import { NumberPickerModule } from '@retailify/ngx-mat-numberpicker';
     MatTableModule,
     MatBadgeModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
     NumberPickerModule
   ],
   exports: [
@@ -39,6 +41,7 @@ import { NumberPickerModule } from '@retailify/ngx-mat-numberpicker';
     MatTableModule,
     MatBadgeModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
     NumberPickerModule
   ]
 })

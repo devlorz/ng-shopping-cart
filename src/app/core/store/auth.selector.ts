@@ -14,3 +14,8 @@ export const getUser = createSelector(
   getAuthState,
   (state: State) => state.user
 );
+
+export const getLoadingStatus = createSelector(
+  getAuthState,
+  (state: State) => state.isLoading
+);
