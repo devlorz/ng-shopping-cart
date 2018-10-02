@@ -1,5 +1,6 @@
 import { AuthDataService } from '../auth/auth-data.service';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of, from } from 'rxjs';
 import { exhaustMap, map, catchError, tap } from 'rxjs/operators';
@@ -18,7 +19,8 @@ import { User } from '../user.model';
 export class AuthEffects {
   constructor(
     private actions$: Actions,
-    private authService: AuthDataService
+    private authService: AuthDataService,
+    private router: Router
   ) {}
 
   @Effect()
@@ -71,6 +73,7 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   logout$ = this.actions$.pipe(
     ofType(AuthActionTypes.Logout),
-    tap(() => this.authService.firebaseSignOut())
+    tap(() => this.authService.firebaseSignOut()),
+    tap(() => this.router.navigate(['']))
   );
 }
