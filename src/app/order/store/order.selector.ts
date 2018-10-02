@@ -7,3 +7,8 @@ export const getAllOrders = createSelector(
   getOrderState,
   state => state.orders
 );
+
+export const getLoadingStatus = createSelector(
+  getOrderState,
+  state => state.isLoading
+);

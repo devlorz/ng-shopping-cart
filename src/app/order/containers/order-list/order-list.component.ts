@@ -1,3 +1,5 @@
+import { LoadingComponent } from './../../../shared/components/loading/loading.component';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -11,10 +13,13 @@ import { OrderService } from '../../order.service';
 export class OrderListComponent implements OnInit, OnDestroy {
   orders$ = this.orderService.getAllOrders();
   userSubscription: Subscription;
+  loadingSubscription: Subscription;
+  loadingDialogRef: MatDialogRef<LoadingComponent>;
 
   constructor(
     private orderService: OrderService,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -23,6 +28,20 @@ export class OrderListComponent implements OnInit, OnDestroy {
         this.orderService.getOrders();
       }
     });
+
+    this.loadingSubscription = this.orderService.isLoading$.subscribe(
+      isLoading => {
+        if (isLoading) {
+          setTimeout(() => {
+            this.loadingDialogRef = this.dialog.open(LoadingComponent);
+          });
+        } else {
+          if (this.loadingDialogRef) {
+            this.loadingDialogRef.close();
+          }
+        }
+      }
+    );
   }
 
   ngOnDestroy() {

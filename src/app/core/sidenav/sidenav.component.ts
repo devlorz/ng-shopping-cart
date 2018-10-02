@@ -25,7 +25,9 @@ export class SidenavComponent implements OnInit, OnDestroy {
     this.auth.getUser();
     this.loadingSubscription = this.auth.isLoading$.subscribe(isLoading => {
       if (isLoading) {
-        this.loadingDialogRef = this.dialog.open(LoadingComponent);
+        setTimeout(() => {
+          this.loadingDialogRef = this.dialog.open(LoadingComponent);
+        });
       } else {
         if (this.loadingDialogRef) {
           this.loadingDialogRef.close();
