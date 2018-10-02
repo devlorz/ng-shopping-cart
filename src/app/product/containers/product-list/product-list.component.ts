@@ -26,13 +26,11 @@ export class ProductListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.productService.get().subscribe();
+    // this.productService.get().subscribe();
 
     this.products$ = this.productService.getProductByName('');
-    // this.search.valueChanges.pipe(
-    //   startWith(''),
-    //   switchMap(value => this.productService.getProductByName(value))
-    // );
+
+    this.productService.getProducts();
   }
 
   onAddToCart(product: Product) {

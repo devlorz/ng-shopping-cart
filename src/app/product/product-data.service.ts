@@ -1,3 +1,4 @@
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { mapTo } from 'rxjs/operators';
@@ -41,7 +42,13 @@ const mockProducts = [
   providedIn: 'root'
 })
 export class ProductDataService {
+  constructor(private afs: AngularFirestore) {}
+
   get(): Observable<Product[]> {
     return timer(500).pipe(mapTo(mockProducts));
+  }
+
+  getProducts() {
+    return this.afs.collection(`products`).valueChanges();
   }
 }

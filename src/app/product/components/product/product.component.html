@@ -1,7 +1,7 @@
 <mat-card class="card-container">
   <img mat-card-image
-       src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-       alt="Photo of a Shiba Inu">
+       [src]="product.images[0]"
+       [alt]="product.title">
   <mat-card-subtitle>{{ product.title.toUpperCase() }}</mat-card-subtitle>
   <mat-card-content>
     <h3>Price: {{ product.price | number }}</h3>

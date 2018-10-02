@@ -1,14 +1,26 @@
 import { Action } from '@ngrx/store';
 import { Product } from '../product.model';
 
-export const ProductActionTypes = {
-  SET_ALL_PRODUCTS: '[Product] Set All Products'
-};
+export enum ProductActionTypes {
+  GetProducts = '[Product] Get Products',
+  GetProductsSuccess = '[Product] Get Products Success',
+  GetProductsFail = '[Product] Get Products Fail'
+}
 
-export class SetAllProducts implements Action {
-  readonly type = ProductActionTypes.SET_ALL_PRODUCTS;
+export class GetProducts implements Action {
+  readonly type = ProductActionTypes.GetProducts;
+}
+
+export class GetProductsSuccess implements Action {
+  readonly type = ProductActionTypes.GetProductsSuccess;
 
   constructor(public payload: Array<Product>) {}
 }
 
-export type ProductActions = SetAllProducts;
+export class GetProductsFail implements Action {
+  readonly type = ProductActionTypes.GetProductsFail;
+
+  constructor(public payload: any) {}
+}
+
+export type ProductActions = GetProducts | GetProductsSuccess | GetProductsFail;

@@ -1,3 +1,5 @@
+import { ProductEffects } from './store/product.effect';
+import { EffectsModule } from '@ngrx/effects';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from './../material/material.module';
@@ -20,7 +22,8 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    StoreModule.forFeature('product', reducer)
+    StoreModule.forFeature('product', reducer),
+    EffectsModule.forFeature([ProductEffects])
   ],
   declarations: [
     ProductListComponent,

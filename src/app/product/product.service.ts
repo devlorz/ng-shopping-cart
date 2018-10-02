@@ -8,6 +8,7 @@ import { Product } from './product.model';
 import { State as ProductState } from './store/product.reducer';
 import * as ProductAction from './store/product.action';
 import * as ProductSelector from './store/product.selector';
+import { GetProducts } from './store/product.action';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +19,18 @@ export class ProductService {
     private productStore: Store<ProductState>
   ) {}
 
+  getProducts() {
+    this.productStore.dispatch(new GetProducts());
+  }
+
   get(): Observable<Product[]> {
     return this.productDataService
       .get()
       .pipe(
         tap(response =>
-          this.productStore.dispatch(new ProductAction.SetAllProducts(response))
+          this.productStore.dispatch(
+            new ProductAction.GetProductsSuccess(response)
+          )
         )
       );
   }
