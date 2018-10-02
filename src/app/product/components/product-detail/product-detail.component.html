@@ -1,7 +1,10 @@
 <div class="wrapper">
-  <img src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-       alt="Photo of a Shiba Inu"
-       class="image">
+  <!-- <img [src]="product.images[0]"
+       [alt]="product.title"
+       class="image"> -->
+  <slideshow [imageUrls]="product.images"
+             [minHeight]="'300px'"
+             [backgroundSize]="'contain'"></slideshow>
   <h3>{{ product.title.toUpperCase() }}</h3>
   <h3>Price: {{ product.price | number }}</h3>
   <p>{{ product.description }}</p>

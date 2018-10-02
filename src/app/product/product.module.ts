@@ -8,6 +8,7 @@ import { ProductListComponent } from './containers/product-list/product-list.com
 import { ProductComponent } from './components/product/product.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
+import { SlideshowModule } from 'ng-simple-slideshow';
 import { reducer } from './store/product.reducer';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
@@ -22,6 +23,7 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
+    SlideshowModule,
     StoreModule.forFeature('product', reducer),
     EffectsModule.forFeature([ProductEffects])
   ],
