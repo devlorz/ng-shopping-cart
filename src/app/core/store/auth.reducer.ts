@@ -32,7 +32,15 @@ export const reducer = produce<State, AuthActions>((draft, action) => {
       return;
     }
     case AuthActionTypes.Logout: {
+      draft.isLoading = true;
+      return;
+    }
+    case AuthActionTypes.LogoutSuccess: {
       return initialState;
+    }
+    case AuthActionTypes.LogoutFailure: {
+      draft.isLoading = false;
+      return;
     }
   }
 }, initialState);

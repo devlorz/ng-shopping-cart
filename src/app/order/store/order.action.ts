@@ -5,7 +5,8 @@ import { Order } from './../order.model';
 export enum OrderActionTypes {
   GetOrders = '[Order] Get Orders',
   GetOrdersSuccess = '[Order] Get Orders Success',
-  GetOrdersFail = '[Order] Get Orders Fail'
+  GetOrdersFail = '[Order] Get Orders Fail',
+  ResetOrders = '[Order] Reset Orders'
 }
 
 export class GetOrders implements Action {
@@ -24,4 +25,12 @@ export class GetOrdersFail implements Action {
   constructor(public payload: any) {}
 }
 
-export type OrderActions = GetOrders | GetOrdersSuccess | GetOrdersFail;
+export class ResetOrders implements Action {
+  readonly type = OrderActionTypes.ResetOrders;
+}
+
+export type OrderActions =
+  | GetOrders
+  | GetOrdersSuccess
+  | GetOrdersFail
+  | ResetOrders;

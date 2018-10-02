@@ -1,3 +1,4 @@
+import { ResetOrders } from './../../order/store/order.action';
 import { AuthDataService } from '../auth/auth-data.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -11,23 +12,27 @@ import {
   LoginSuccess,
   LoginFailure,
   GetUserSuccess,
-  GetUserFailure
+  GetUserFailure,
+  LogoutSuccess,
+  LogoutFailure
 } from './auth.action';
 import { User } from '../user.model';
+import { OrderService } from '../../order/order.service';
 
 @Injectable()
 export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthDataService,
-    private router: Router
+    private router: Router,
+    private orderService: OrderService
   ) {}
 
   @Effect()
   login$ = this.actions$.pipe(
     ofType(AuthActionTypes.Login),
-    exhaustMap(action =>
-      from(this.authService.googleLogin()).pipe(
+    exhaustMap(_ =>
+      this.authService.googleLogin().pipe(
         tap(credential => console.log(credential)),
         map(credential => {
           const {
@@ -52,7 +57,7 @@ export class AuthEffects {
   @Effect()
   getUser$ = this.actions$.pipe(
     ofType(AuthActionTypes.GetUser),
-    exhaustMap(action =>
+    exhaustMap(_ =>
       this.authService.getUserFromFirebaseAuth().pipe(
         tap(user => console.log(user)),
         map((firebaseUser: FirebaseUser) => {
@@ -70,10 +75,21 @@ export class AuthEffects {
     )
   );
 
-  @Effect({ dispatch: false })
+  @Effect()
   logout$ = this.actions$.pipe(
     ofType(AuthActionTypes.Logout),
-    tap(() => this.authService.firebaseSignOut()),
-    tap(() => this.router.navigate(['']))
+    exhaustMap(_ =>
+      this.authService.firebaseSignOut().pipe(
+        map(res => new LogoutSuccess()),
+        catchError(err => of(new LogoutFailure(err)))
+      )
+    )
+  );
+
+  @Effect()
+  logoutSuccess$ = this.actions$.pipe(
+    ofType(AuthActionTypes.LogoutSuccess),
+    tap(_ => this.router.navigate([''])),
+    map(_ => new ResetOrders())
   );
 }

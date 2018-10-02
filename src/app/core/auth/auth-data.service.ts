@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
+import { from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,11 @@ export class AuthDataService {
 
   googleLogin() {
     const provider = new auth.GoogleAuthProvider();
-    return this.oAuthLogin(provider);
+    return from(this.oAuthLogin(provider));
   }
 
   firebaseSignOut() {
-    this.afAuth.auth.signOut();
+    return from(this.afAuth.auth.signOut());
   }
 
   private oAuthLogin(provider) {

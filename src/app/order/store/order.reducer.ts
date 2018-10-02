@@ -28,5 +28,8 @@ export const reducer = produce<State, OrderActions>((draft, action) => {
       draft.isLoading = false;
       return;
     }
+    case OrderActionTypes.ResetOrders: {
+      return initialState;
+    }
   }
 }, initialState);

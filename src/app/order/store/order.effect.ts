@@ -6,7 +6,9 @@ import {
   tap,
   map,
   catchError,
-  withLatestFrom
+  withLatestFrom,
+  concatMap,
+  switchMap
 } from 'rxjs/operators';
 
 import { getUser } from './../../core/store/auth.selector';
@@ -32,7 +34,7 @@ export class OrderEffects {
   getOrders$ = this.actions$.pipe(
     ofType(OrderActionTypes.GetOrders),
     withLatestFrom(this.store.select(getUser)),
-    exhaustMap(([action, user]) =>
+    switchMap(([action, user]) =>
       this.orderService.getOrders(user.uid).pipe(
         tap(result => console.log(result)),
         map((result: any) => result.orders),

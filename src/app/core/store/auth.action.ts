@@ -4,6 +4,8 @@ import { User } from '../user.model';
 export enum AuthActionTypes {
   Login = '[Auth] Login',
   Logout = '[Auth] Logout',
+  LogoutSuccess = '[Auth] Logout Success',
+  LogoutFailure = '[Auth] Logout Failure',
   LoginSuccess = '[Auth] Login Success',
   LoginFailure = '[Auth] Login Failure',
   GetUser = '[Auth] Get User',
@@ -31,6 +33,16 @@ export class Logout implements Action {
   readonly type = AuthActionTypes.Logout;
 }
 
+export class LogoutSuccess implements Action {
+  readonly type = AuthActionTypes.LogoutSuccess;
+}
+
+export class LogoutFailure implements Action {
+  readonly type = AuthActionTypes.LogoutFailure;
+
+  constructor(public payload: any) {}
+}
+
 export class GetUser implements Action {
   readonly type = AuthActionTypes.GetUser;
 }
@@ -52,6 +64,8 @@ export type AuthActions =
   | LoginSuccess
   | LoginFailure
   | Logout
+  | LogoutSuccess
+  | LogoutFailure
   | GetUser
   | GetUserSuccess
   | GetUserFailure;
