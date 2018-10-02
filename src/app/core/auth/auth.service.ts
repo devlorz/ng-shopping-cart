@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { State as AuthState } from './store/auth.reducer';
-import { Login, Logout, GetUser } from './store/auth.action';
+import { State as AuthState } from '../store/auth.reducer';
+import { Login, Logout, GetUser } from '../store/auth.action';
 import {
   getUser as getUserState,
-  getLoadingStatus
-} from './store/auth.selector';
+  getLoadingStatus,
+  getLoggedInStatus
+} from '../store/auth.selector';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class AuthService {
   constructor(private store: Store<AuthState>) {}
 
   isLoading$ = this.store.select(getLoadingStatus);
+  isLogin$ = this.store.select(getLoggedInStatus);
 
   getUserInfo() {
     return this.store.select(getUserState);

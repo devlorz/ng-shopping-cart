@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from './../../../core/auth.service';
+import { AuthService } from '../../../core/auth/auth.service';
 import { OrderService } from '../../order.service';
 
 @Component({

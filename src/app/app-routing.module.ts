@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { Route } from './core/route.service';
+import { AuthGuard } from './core/auth/auth.guard';
 
 const routes: Routes = [
   Route.withShell([
@@ -14,7 +15,8 @@ const routes: Routes = [
     },
     {
       path: 'order',
-      loadChildren: './order/order.module#OrderModule'
+      loadChildren: './order/order.module#OrderModule',
+      canActivate: [AuthGuard]
     }
   ]),
   // Fallback when no prior route is matched

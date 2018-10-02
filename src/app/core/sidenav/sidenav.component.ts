@@ -3,7 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth/auth.service';
 import { LoadingComponent } from '../../shared/components/loading/loading.component';
 
 @Component({

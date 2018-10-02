@@ -1,4 +1,4 @@
-import { AuthDataService } from './../auth-data.service';
+import { AuthDataService } from '../auth/auth-data.service';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of, from } from 'rxjs';

@@ -5,7 +5,7 @@ import { State } from './auth.reducer';
 // export const getAuthState = (state: AppState) => state.auth;
 export const getAuthState = createFeatureSelector<State>('auth');
 
-export const getLoggedIn = createSelector(
+export const getLoggedInStatus = createSelector(
   getAuthState,
   state => state.loggedIn
 );
