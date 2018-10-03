@@ -13,20 +13,22 @@ const initialState: State = {
   isLoading: false
 };
 
-export const reducer = produce<State, ProductActions>((draft, action) => {
-  switch (action.type) {
-    case ProductActionTypes.GetProducts: {
-      draft.isLoading = true;
-      break;
+export function reducer(state = initialState, action: ProductActions) {
+  return produce(state, draft => {
+    switch (action.type) {
+      case ProductActionTypes.GetProducts: {
+        draft.isLoading = true;
+        break;
+      }
+      case ProductActionTypes.GetProductsSuccess: {
+        draft.products = action.payload;
+        draft.isLoading = false;
+        break;
+      }
+      case ProductActionTypes.GetProductsFail: {
+        draft.isLoading = false;
+        break;
+      }
     }
-    case ProductActionTypes.GetProductsSuccess: {
-      draft.products = action.payload;
-      draft.isLoading = false;
-      break;
-    }
-    case ProductActionTypes.GetProductsFail: {
-      draft.isLoading = false;
-      break;
-    }
-  }
-}, initialState);
+  });
+}
