@@ -5,4 +5,6 @@ export interface Product {
   price: number;
   images: Array<string>;
   brand: string;
+  type: string;
+  category: string;
 }

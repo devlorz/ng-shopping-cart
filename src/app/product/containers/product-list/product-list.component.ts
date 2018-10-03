@@ -28,7 +28,7 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {
     // this.productService.get().subscribe();
 
-    this.products$ = this.productService.getProductByName('');
+    this.products$ = this.productService.getProductByKeyword('');
 
     this.productService.getProducts();
   }
@@ -42,7 +42,9 @@ export class ProductListComponent implements OnInit {
   }
 
   onSearch(text: string) {
-    this.products$ = this.productService.getProductByName(text);
+    this.products$ = this.productService.getProductByKeyword(
+      text.toLowerCase()
+    );
   }
 
   onShowProductDetail(productId: number) {

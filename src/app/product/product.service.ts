@@ -23,13 +23,17 @@ export class ProductService {
     this.productStore.dispatch(new GetProducts());
   }
 
-  getProductByName(value: string) {
+  getProductByKeyword(value: string) {
     return this.productStore
       .select(ProductSelector.getAllProducts)
       .pipe(
         map(products =>
-          products.filter(product =>
-            product.title.toLowerCase().includes(value)
+          products.filter(
+            product =>
+              product.title.toLowerCase().includes(value) ||
+              product.brand.toLowerCase().includes(value) ||
+              product.type.toLowerCase().includes(value) ||
+              product.category.toLowerCase().includes(value)
           )
         )
       );
