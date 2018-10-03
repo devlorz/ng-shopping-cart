@@ -28,9 +28,7 @@ export class CartListComponent implements OnInit, OnDestroy {
     this.loadingSubscription = this.cartService.isLoading$.subscribe(
       isLoading => {
         if (isLoading) {
-          setTimeout(() => {
-            this.loadingDialogRef = this.dialog.open(LoadingComponent);
-          });
+          this.loadingDialogRef = this.dialog.open(LoadingComponent);
         } else {
           if (this.loadingDialogRef) {
             this.loadingDialogRef.close();
@@ -66,10 +64,8 @@ export class CartListComponent implements OnInit, OnDestroy {
     dialog
       .afterClosed()
       .pipe(
-        tap(result => console.log(result)),
         filter(result => result),
-        withLatestFrom(this.cartService.selectItems$),
-        tap(([_, data]) => console.log(data))
+        withLatestFrom(this.cartService.selectItems$)
       )
       .subscribe(([_, data]) => this.cartService.confirmOrder(data));
   }

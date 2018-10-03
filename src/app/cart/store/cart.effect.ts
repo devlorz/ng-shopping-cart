@@ -13,7 +13,8 @@ import {
   map,
   catchError,
   withLatestFrom,
-  concatMap
+  concatMap,
+  switchMap
 } from 'rxjs/operators';
 import { getUser } from '../../core/store/auth.selector';
 import { AppState } from '../../app.reducer';
@@ -35,12 +36,16 @@ export class CartEffects {
   confirmOrder$ = this.actions$.pipe(
     ofType(CartActionTypes.ConfirmOrder),
     withLatestFrom(this.store.select(getUser)),
-    concatMap(([action, user]: [ConfirmOrder, User]) =>
-      this.cartService.updateOrder(action.payload, user.uid).pipe(
-        tap(result => console.log(result)),
-        map(res => new ConfirmOrderSuccess())
-      )
-    ),
+    concatMap(([action, user]: [ConfirmOrder, User]) => {
+      if (user) {
+        return this.cartService.updateOrder(action.payload, user.uid).pipe(
+          tap(result => console.log(result)),
+          map(res => new ConfirmOrderSuccess())
+        );
+      } else {
+        return of(new ConfirmOrderFail('not login'));
+      }
+    }),
     catchError(err => of(new ConfirmOrderFail(err)))
   );
 
