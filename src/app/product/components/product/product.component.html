@@ -4,8 +4,8 @@
        [alt]="product.title">
   <mat-card-subtitle>{{ product.title.toUpperCase() }}</mat-card-subtitle>
   <mat-card-content>
-    <h3>Price: {{ product.price | number }}</h3>
-    <p>{{ product.description }}</p>
+    <h3>{{ product.price | currency: 'THB': 'symbol-narrow' : '1.0' }}</h3>
+    <p>{{ description }}</p>
   </mat-card-content>
   <!-- <mat-card-actions>
     <div class="pull-right">

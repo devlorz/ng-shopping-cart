@@ -51,7 +51,9 @@ export class ProductListComponent implements OnInit {
       .pipe(take(1))
       .subscribe(product => {
         const dialogRef = this.dialog.open(ProductDetailWrapperComponent, {
-          data: product
+          data: product,
+          width: '80%',
+          height: '90%'
         });
 
         dialogRef.afterClosed().subscribe(result => {

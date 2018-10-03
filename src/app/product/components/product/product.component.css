@@ -13,7 +13,12 @@ p {
   margin: 0;
 }
 
+h3 {
+  margin-bottom: 0.5rem;
+}
+
 mat-card-subtitle {
   font-weight: bold;
   margin-bottom: 0.5rem;
+  height: 2rem;
 }

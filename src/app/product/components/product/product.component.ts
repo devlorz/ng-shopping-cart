@@ -22,6 +22,12 @@ export class ProductComponent implements OnInit {
   @Output()
   subtract = new EventEmitter<Product>();
 
+  get description() {
+    return this.product.description.length > 103
+      ? this.product.description.substring(0, 100) + '...'
+      : this.product.description;
+  }
+
   constructor() {}
 
   ngOnInit() {}
