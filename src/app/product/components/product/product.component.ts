@@ -22,6 +22,10 @@ export class ProductComponent implements OnInit {
   @Output()
   subtract = new EventEmitter<Product>();
 
+  get title() {
+    return (this.product.brand + ' ' + this.product.title).toUpperCase();
+  }
+
   get description() {
     return this.product.description.length > 103
       ? this.product.description.substring(0, 100) + '...'

@@ -12,6 +12,10 @@ export class ProductDetailComponent implements OnInit {
   @Output()
   addToCart = new EventEmitter();
 
+  get title() {
+    return (this.product.brand + ' ' + this.product.title).toUpperCase();
+  }
+
   private amount: number;
 
   constructor() {}
