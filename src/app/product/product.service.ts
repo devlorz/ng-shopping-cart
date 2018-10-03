@@ -23,18 +23,6 @@ export class ProductService {
     this.productStore.dispatch(new GetProducts());
   }
 
-  get(): Observable<Product[]> {
-    return this.productDataService
-      .get()
-      .pipe(
-        tap(response =>
-          this.productStore.dispatch(
-            new ProductAction.GetProductsSuccess(response)
-          )
-        )
-      );
-  }
-
   getProductByName(value: string) {
     return this.productStore
       .select(ProductSelector.getAllProducts)

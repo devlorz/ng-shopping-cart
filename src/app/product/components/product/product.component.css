@@ -22,3 +22,7 @@ mat-card-subtitle {
   margin-bottom: 0.5rem;
   height: 2rem;
 }
+
+img {
+  height: 300px;
+}
