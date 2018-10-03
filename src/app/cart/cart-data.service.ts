@@ -7,12 +7,24 @@ import { firestore } from 'firebase';
 import { from } from 'rxjs';
 
 import { Order } from '../order/order.model';
+import { Dictionary } from '@ngrx/entity';
+import { CartItem } from './cart.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartDataService {
   constructor(private afs: AngularFirestore) {}
+
+  getCartItem(uid: string) {
+    return this.afs.doc(`carts/${uid}`).valueChanges();
+  }
+
+  updateCart(cart: Dictionary<CartItem>, uid: string) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`carts/${uid}`);
+
+    return from(userRef.set(cart));
+  }
 
   updateOrder(order: Order, uid: string) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(

@@ -1,10 +1,24 @@
+import { Dictionary } from '@ngrx/entity';
+import {
+  GetCartItemSuccess,
+  GetCartItemFail
+} from './../../cart/store/cart.action';
+import { CartDataService } from './../../cart/cart-data.service';
+import { AppState } from './../../app.reducer';
 import { ResetOrders } from './../../order/store/order.action';
 import { AuthDataService } from '../auth/auth-data.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of, from } from 'rxjs';
-import { exhaustMap, map, catchError, tap } from 'rxjs/operators';
+import {
+  exhaustMap,
+  map,
+  catchError,
+  tap,
+  withLatestFrom,
+  concatMap
+} from 'rxjs/operators';
 import { User as FirebaseUser } from 'firebase';
 
 import {
@@ -18,6 +32,9 @@ import {
 } from './auth.action';
 import { User } from '../user.model';
 import { OrderService } from '../../order/order.service';
+import { Store } from '@ngrx/store';
+import { getUser } from './auth.selector';
+import { CartItem } from '../../cart/cart.model';
 
 @Injectable()
 export class AuthEffects {
@@ -25,7 +42,8 @@ export class AuthEffects {
     private actions$: Actions,
     private authService: AuthDataService,
     private router: Router,
-    private orderService: OrderService
+    private store: Store<AppState>,
+    private cartService: CartDataService
   ) {}
 
   @Effect()
@@ -50,6 +68,20 @@ export class AuthEffects {
           return new LoginSuccess(user);
         }),
         catchError(error => of(new LoginFailure(error)))
+      )
+    )
+  );
+
+  @Effect()
+  loginSuccess$ = this.actions$.pipe(
+    ofType(AuthActionTypes.LoginSuccess, AuthActionTypes.GetUserSuccess),
+    withLatestFrom(this.store.select(getUser)),
+    concatMap(([_, user]) =>
+      this.cartService.getCartItem(user.uid).pipe(
+        map(
+          (cartItems: Dictionary<CartItem>) => new GetCartItemSuccess(cartItems)
+        ),
+        catchError(err => of(new GetCartItemFail(err)))
       )
     )
   );

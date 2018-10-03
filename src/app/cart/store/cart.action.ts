@@ -3,6 +3,7 @@ import { Action } from '@ngrx/store';
 import { Product } from './../../product/product.model';
 import { CartItem } from './../cart.model';
 import { Order } from '../../order/order.model';
+import { Dictionary } from '@ngrx/entity';
 
 export enum CartActionTypes {
   AddItem = '[Cart] Add Item',
@@ -10,7 +11,11 @@ export enum CartActionTypes {
   RemoveItem = '[Cart] Remove Item',
   ConfirmOrder = '[Cart] Confirm Order',
   ConfirmOrderSuccess = '[Cart] Confirm Order Success',
-  ConfirmOrderFail = '[Cart] Confirm Order Fail'
+  ConfirmOrderFail = '[Cart] Confirm Order Fail',
+  UpdateCartSuccess = '[Cart] Update Cart Success',
+  UpdateCartFail = '[Cart] Update Cart Fail',
+  GetCartItemSuccess = '[Cart] Get Cart Item Success',
+  GetCartItemFail = '[Cart] Get Cart Item Fail'
 }
 
 export class AddItem implements Action {
@@ -47,10 +52,36 @@ export class ConfirmOrderFail implements Action {
   constructor(public payload: any) {}
 }
 
+export class UpdateCartSuccess implements Action {
+  readonly type = CartActionTypes.UpdateCartSuccess;
+}
+
+export class UpdateCartFail implements Action {
+  readonly type = CartActionTypes.UpdateCartFail;
+
+  constructor(public payload: any) {}
+}
+
+export class GetCartItemSuccess implements Action {
+  readonly type = CartActionTypes.GetCartItemSuccess;
+
+  constructor(public payload: Dictionary<CartItem>) {}
+}
+
+export class GetCartItemFail implements Action {
+  readonly type = CartActionTypes.GetCartItemFail;
+
+  constructor(public payload: any) {}
+}
+
 export type CartActions =
   | AddItem
   | AdjustQuantity
   | RemoveItem
   | ConfirmOrder
   | ConfirmOrderSuccess
-  | ConfirmOrderFail;
+  | ConfirmOrderFail
+  | UpdateCartSuccess
+  | UpdateCartFail
+  | GetCartItemSuccess
+  | GetCartItemFail;

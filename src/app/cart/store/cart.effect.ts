@@ -5,7 +5,9 @@ import {
   CartActionTypes,
   ConfirmOrder,
   ConfirmOrderSuccess,
-  ConfirmOrderFail
+  ConfirmOrderFail,
+  UpdateCartSuccess,
+  UpdateCartFail
 } from './cart.action';
 import {
   exhaustMap,
@@ -14,7 +16,8 @@ import {
   catchError,
   withLatestFrom,
   concatMap,
-  switchMap
+  switchMap,
+  filter
 } from 'rxjs/operators';
 import { getUser } from '../../core/store/auth.selector';
 import { AppState } from '../../app.reducer';
@@ -22,6 +25,7 @@ import { Store } from '@ngrx/store';
 import { User } from '../../core/user.model';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { getCarts } from './cart.selector';
 
 @Injectable()
 export class CartEffects {
@@ -53,5 +57,24 @@ export class CartEffects {
   confirmOrderSuccess$ = this.actions$.pipe(
     ofType(CartActionTypes.ConfirmOrderSuccess),
     tap(_ => this.route.navigate(['']))
+  );
+
+  @Effect({ dispatch: false })
+  updateCart$ = this.actions$.pipe(
+    ofType(
+      CartActionTypes.AddItem,
+      CartActionTypes.AdjustQuantity,
+      CartActionTypes.RemoveItem
+    ),
+    withLatestFrom(this.store.select(getUser)),
+    withLatestFrom(this.store.select(getCarts)),
+    tap(([[action, user], carts]) => console.log(carts)),
+    filter(([[action, user], carts]) => user !== null),
+    concatMap(([[action, user], carts]) =>
+      this.cartService
+        .updateCart(carts, user.uid)
+        .pipe(map(_ => new UpdateCartSuccess()))
+    ),
+    catchError(err => of(new UpdateCartFail(err)))
   );
 }
