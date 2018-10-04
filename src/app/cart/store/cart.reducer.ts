@@ -1,4 +1,4 @@
-import { createEntityAdapter, EntityState } from '@ngrx/entity';
+import { createEntityAdapter, EntityState, Dictionary } from '@ngrx/entity';
 import produce from 'immer';
 
 import { CartActions, CartActionTypes } from './cart.action';
@@ -53,6 +53,20 @@ export const reducer = produce<State, CartActions>((draft, action) => {
     case CartActionTypes.ConfirmOrderFail: {
       draft.isloading = false;
       return;
+    }
+    case CartActionTypes.GetCartItemSuccess: {
+      draft.ids = action.payload.carts.map(cart => cart.productId);
+      draft.entities = action.payload.carts.reduce(
+        (acc, cur) => {
+          acc[cur.productId] = cur;
+          return acc;
+        },
+        {} as Dictionary<CartItem>
+      );
+      break;
+    }
+    case CartActionTypes.ResetCart: {
+      return initialState;
     }
   }
 }, initialState);

@@ -25,7 +25,7 @@ import { Store } from '@ngrx/store';
 import { User } from '../../core/user.model';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
-import { getCarts } from './cart.selector';
+import { getCarts, getAllCartItems } from './cart.selector';
 
 @Injectable()
 export class CartEffects {
@@ -67,7 +67,7 @@ export class CartEffects {
       CartActionTypes.RemoveItem
     ),
     withLatestFrom(this.store.select(getUser)),
-    withLatestFrom(this.store.select(getCarts)),
+    withLatestFrom(this.store.select(getAllCartItems)),
     tap(([[action, user], carts]) => console.log(carts)),
     filter(([[action, user], carts]) => user !== null),
     concatMap(([[action, user], carts]) =>

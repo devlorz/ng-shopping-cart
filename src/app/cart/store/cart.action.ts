@@ -15,7 +15,8 @@ export enum CartActionTypes {
   UpdateCartSuccess = '[Cart] Update Cart Success',
   UpdateCartFail = '[Cart] Update Cart Fail',
   GetCartItemSuccess = '[Cart] Get Cart Item Success',
-  GetCartItemFail = '[Cart] Get Cart Item Fail'
+  GetCartItemFail = '[Cart] Get Cart Item Fail',
+  ResetCart = '[Cart] Reset Cart'
 }
 
 export class AddItem implements Action {
@@ -65,13 +66,17 @@ export class UpdateCartFail implements Action {
 export class GetCartItemSuccess implements Action {
   readonly type = CartActionTypes.GetCartItemSuccess;
 
-  constructor(public payload: Dictionary<CartItem>) {}
+  constructor(public payload: { carts: CartItem[] }) {}
 }
 
 export class GetCartItemFail implements Action {
   readonly type = CartActionTypes.GetCartItemFail;
 
   constructor(public payload: any) {}
+}
+
+export class ResetCart implements Action {
+  readonly type = CartActionTypes.ResetCart;
 }
 
 export type CartActions =
@@ -84,4 +89,5 @@ export type CartActions =
   | UpdateCartSuccess
   | UpdateCartFail
   | GetCartItemSuccess
-  | GetCartItemFail;
+  | GetCartItemFail
+  | ResetCart;

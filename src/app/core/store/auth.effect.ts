@@ -1,7 +1,8 @@
 import { Dictionary } from '@ngrx/entity';
 import {
   GetCartItemSuccess,
-  GetCartItemFail
+  GetCartItemFail,
+  ResetCart
 } from './../../cart/store/cart.action';
 import { CartDataService } from './../../cart/cart-data.service';
 import { AppState } from './../../app.reducer';
@@ -17,7 +18,9 @@ import {
   catchError,
   tap,
   withLatestFrom,
-  concatMap
+  concatMap,
+  take,
+  switchMap
 } from 'rxjs/operators';
 import { User as FirebaseUser } from 'firebase';
 
@@ -72,19 +75,21 @@ export class AuthEffects {
     )
   );
 
-  // @Effect()
-  // loginSuccess$ = this.actions$.pipe(
-  //   ofType(AuthActionTypes.LoginSuccess, AuthActionTypes.GetUserSuccess),
-  //   withLatestFrom(this.store.select(getUser)),
-  //   concatMap(([_, user]) =>
-  //     this.cartService.getCartItem(user.uid).pipe(
-  //       map(
-  //         (cartItems: Dictionary<CartItem>) => new GetCartItemSuccess(cartItems)
-  //       ),
-  //       catchError(err => of(new GetCartItemFail(err)))
-  //     )
-  //   )
-  // );
+  @Effect()
+  loginSuccess$ = this.actions$.pipe(
+    ofType(AuthActionTypes.LoginSuccess, AuthActionTypes.GetUserSuccess),
+    withLatestFrom(this.store.select(getUser)),
+    concatMap(([_, user]) =>
+      this.cartService.getCartItem(user.uid).pipe(
+        take(1),
+        map(
+          (cartItems: { carts: CartItem[] }) =>
+            new GetCartItemSuccess(cartItems)
+        ),
+        catchError(err => of(new GetCartItemFail(err)))
+      )
+    )
+  );
 
   @Effect()
   getUser$ = this.actions$.pipe(
@@ -122,6 +127,6 @@ export class AuthEffects {
   logoutSuccess$ = this.actions$.pipe(
     ofType(AuthActionTypes.LogoutSuccess),
     tap(_ => this.router.navigate([''])),
-    map(_ => new ResetOrders())
+    switchMap(_ => [new ResetOrders(), new ResetCart()])
   );
 }

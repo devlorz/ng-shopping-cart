@@ -20,10 +20,10 @@ export class CartDataService {
     return this.afs.doc(`carts/${uid}`).valueChanges();
   }
 
-  updateCart(cart: Dictionary<CartItem>, uid: string) {
+  updateCart(cartList: CartItem[], uid: string) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`carts/${uid}`);
 
-    return from(userRef.set(cart));
+    return from(userRef.set({ carts: cartList }));
   }
 
   updateOrder(order: Order, uid: string) {
