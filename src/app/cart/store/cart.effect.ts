@@ -64,7 +64,8 @@ export class CartEffects {
     ofType(
       CartActionTypes.AddItem,
       CartActionTypes.AdjustQuantity,
-      CartActionTypes.RemoveItem
+      CartActionTypes.RemoveItem,
+      CartActionTypes.ConfirmOrderSuccess
     ),
     withLatestFrom(this.store.select(getUser)),
     withLatestFrom(this.store.select(getAllCartItems)),
