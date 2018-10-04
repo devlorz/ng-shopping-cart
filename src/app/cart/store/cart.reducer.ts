@@ -26,7 +26,7 @@ export function reducer(state = initialState, action: CartActions) {
             action.payload.quantity;
           break;
         } else {
-          return cartAdapter.addOne(action.payload, draft);
+          return cartAdapter.addOne(action.payload, state);
         }
       }
       case CartActionTypes.AdjustQuantity: {
@@ -35,12 +35,12 @@ export function reducer(state = initialState, action: CartActions) {
           draft.entities[action.payload.id].quantity = action.payload.quantity;
           break;
         }
-        return;
+        break;
       }
       case CartActionTypes.RemoveItem: {
         const ids = draft.ids as Array<number | string>;
         if (ids.includes(action.payload)) {
-          return cartAdapter.removeOne(action.payload, draft);
+          return cartAdapter.removeOne(action.payload, state);
         }
         break;
       }
@@ -56,15 +56,7 @@ export function reducer(state = initialState, action: CartActions) {
         break;
       }
       case CartActionTypes.GetCartItemSuccess: {
-        draft.ids = action.payload.carts.map(cart => cart.productId);
-        draft.entities = action.payload.carts.reduce(
-          (acc, cur) => {
-            acc[cur.productId] = cur;
-            return acc;
-          },
-          {} as Dictionary<CartItem>
-        );
-        break;
+        return cartAdapter.addAll(action.payload.carts, state);
       }
       case CartActionTypes.ResetCart: {
         return initialState;
