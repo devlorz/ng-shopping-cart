@@ -22,8 +22,12 @@
                      class="center"> Quantity </mat-header-cell>
     <mat-cell *matCellDef="let element"
               class="center">
-      <app-number-picker [default]="element.quantity"
-                         (valueChange)="onQuantityChange($event,element.id)"></app-number-picker>
+      {{element.quantity}}
+      <mat-icon class="btn-edit pointer"
+                [color]="'accent'"
+                (click)="onQuantityChange(element.quantity,element.id)">edit</mat-icon>
+      <!-- <app-number-picker [default]="element.quantity"
+                         (valueChange)="onQuantityChange($event,element.id)"></app-number-picker> -->
     </mat-cell>
     <mat-footer-cell *matFooterCellDef
                      class="center"></mat-footer-cell>
@@ -43,6 +47,7 @@
     <mat-cell *matCellDef="let element"
               class="half right">
       <mat-icon class="btn-delete pointer"
+                [color]="'accent'"
                 (click)="onDelete(element.id)">delete_forever</mat-icon>
     </mat-cell>
     <mat-footer-cell *matFooterCellDef

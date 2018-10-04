@@ -1,5 +1,8 @@
-<ngx-mat-numberpicker [min]="1"
-                      [max]="99"
-                      [default]="default"
-                      [disabled]="true"
-                      (onChange)="valueChange.emit($event)"></ngx-mat-numberpicker>
+<mat-form-field class="wrapper">
+  <input matInput
+         type="number"
+         min="1"
+         max="99"
+         [(ngModel)]="default"
+         (ngModelChange)="valueChange.emit($event)">
+</mat-form-field>

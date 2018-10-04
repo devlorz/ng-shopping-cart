@@ -26,8 +26,11 @@ table {
   flex-grow: 0.75;
 }
 
+.btn-edit {
+  margin-left: 5px;
+}
+
 .btn-delete {
-  color: red;
   margin-right: 5px;
 }
 

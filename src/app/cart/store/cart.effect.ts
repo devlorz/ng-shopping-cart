@@ -59,7 +59,7 @@ export class CartEffects {
     tap(_ => this.route.navigate(['']))
   );
 
-  @Effect({ dispatch: false })
+  @Effect()
   updateCart$ = this.actions$.pipe(
     ofType(
       CartActionTypes.AddItem,

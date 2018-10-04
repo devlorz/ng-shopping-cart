@@ -27,7 +27,6 @@
     "@ngrx/entity": "^6.1.0",
     "@ngrx/store": "^6.1.0",
     "@ngrx/store-devtools": "^6.1.0",
-    "@retailify/ngx-mat-numberpicker": "^1.0.1",
     "core-js": "^2.5.4",
     "firebase": "^5.5.1",
     "immer": "^1.7.1",

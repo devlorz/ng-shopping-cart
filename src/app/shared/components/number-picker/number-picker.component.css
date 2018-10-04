@@ -1,13 +1,7 @@
-/deep/ span[flex] {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.wrapper {
+  width: 100%;
 }
 
-/deep/ span[flex] > button {
-  width: 25px;
-}
-
-/deep/ mat-form-field[flex] {
-  width: 30%;
+input {
+  text-align: center;
 }

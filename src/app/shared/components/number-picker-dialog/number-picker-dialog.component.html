@@ -1,0 +1,9 @@
+<h3>Edit Quantity</h3>
+<app-number-picker [default]="defaultValue"
+                   (valueChange)="defaultValue = $event"></app-number-picker>
+<div class="footer">
+  <button mat-button
+          (click)="onCancel()">Cancel</button>
+  <button mat-button
+          (click)="onOK()">OK</button>
+</div>

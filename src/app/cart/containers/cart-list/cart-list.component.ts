@@ -1,3 +1,4 @@
+import { NumberPickerDialogComponent } from './../../../shared/components/number-picker-dialog/number-picker-dialog.component';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Observable, Subscription } from 'rxjs';
@@ -54,7 +55,14 @@ export class CartListComponent implements OnInit, OnDestroy {
   }
 
   onQuantityChange({ id, quantity }: { id: number; quantity: number }) {
-    this.cartService.adjustQuantity(id, quantity);
+    const dialog = this.dialog.open(NumberPickerDialogComponent, {
+      data: quantity
+    });
+    dialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.cartService.adjustQuantity(id, result);
+      }
+    });
   }
 
   onCheckout() {

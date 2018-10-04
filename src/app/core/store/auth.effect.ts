@@ -72,19 +72,19 @@ export class AuthEffects {
     )
   );
 
-  @Effect()
-  loginSuccess$ = this.actions$.pipe(
-    ofType(AuthActionTypes.LoginSuccess, AuthActionTypes.GetUserSuccess),
-    withLatestFrom(this.store.select(getUser)),
-    concatMap(([_, user]) =>
-      this.cartService.getCartItem(user.uid).pipe(
-        map(
-          (cartItems: Dictionary<CartItem>) => new GetCartItemSuccess(cartItems)
-        ),
-        catchError(err => of(new GetCartItemFail(err)))
-      )
-    )
-  );
+  // @Effect()
+  // loginSuccess$ = this.actions$.pipe(
+  //   ofType(AuthActionTypes.LoginSuccess, AuthActionTypes.GetUserSuccess),
+  //   withLatestFrom(this.store.select(getUser)),
+  //   concatMap(([_, user]) =>
+  //     this.cartService.getCartItem(user.uid).pipe(
+  //       map(
+  //         (cartItems: Dictionary<CartItem>) => new GetCartItemSuccess(cartItems)
+  //       ),
+  //       catchError(err => of(new GetCartItemFail(err)))
+  //     )
+  //   )
+  // );
 
   @Effect()
   getUser$ = this.actions$.pipe(
