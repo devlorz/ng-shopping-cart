@@ -12,6 +12,10 @@ export class OrderItemComponent implements OnInit {
   dataSource: Array<OrderItem>;
   @Input()
   total: number;
+  @Input()
+  orderNumber: string;
+  @Input()
+  orderDate: string;
 
   displayedColumns: Array<string> = ['title', 'quantity', 'total'];
 

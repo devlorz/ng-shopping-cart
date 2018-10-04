@@ -22,14 +22,18 @@ export function createOrder(items: Array<CartItem & Product>) {
     } as OrderItem;
   });
   return {
-    id: 0,
+    orderNumber: Math.random()
+      .toString(36)
+      .substring(5),
+    date: new Date().toLocaleDateString('en-US'),
     orderItems,
     grandTotal
   } as Order;
 }
 
 export interface Order {
-  id: number;
+  orderNumber: string;
   grandTotal: number;
+  date: string;
   orderItems: Array<OrderItem>;
 }

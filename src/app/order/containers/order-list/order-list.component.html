@@ -4,7 +4,9 @@
     <div *ngIf="dataSource.length > 0; else empty">
       <app-order-item *ngFor="let item of dataSource"
                       [dataSource]="item.orderItems"
-                      [total]="item.grandTotal"></app-order-item>
+                      [total]="item.grandTotal"
+                      [orderNumber]="item.orderNumber"
+                      [orderDate]="item.date"></app-order-item>
     </div>
   </div>
   <ng-template #empty>
