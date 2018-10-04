@@ -16,60 +16,62 @@ const initialState = cartAdapter.getInitialState({
   isloading: false
 });
 
-export const reducer = produce<State, CartActions>((draft, action) => {
-  switch (action.type) {
-    case CartActionTypes.AddItem: {
-      const ids = draft.ids as Array<number | string>;
-      if (ids.includes(action.payload.productId)) {
-        draft.entities[action.payload.productId].quantity +=
-          action.payload.quantity;
+export function reducer(state = initialState, action: CartActions) {
+  return produce(state, draft => {
+    switch (action.type) {
+      case CartActionTypes.AddItem: {
+        const ids = draft.ids as Array<number | string>;
+        if (ids.includes(action.payload.productId)) {
+          draft.entities[action.payload.productId].quantity +=
+            action.payload.quantity;
+          return;
+        } else {
+          return cartAdapter.addOne(action.payload, draft);
+        }
+      }
+      case CartActionTypes.AdjustQuantity: {
+        const ids = draft.ids as Array<number | string>;
+        if (ids.includes(action.payload.id)) {
+          draft.entities[action.payload.id].quantity = action.payload.quantity;
+          return;
+        }
         return;
-      } else {
-        return cartAdapter.addOne(action.payload, draft);
       }
-    }
-    case CartActionTypes.AdjustQuantity: {
-      const ids = draft.ids as Array<number | string>;
-      if (ids.includes(action.payload.id)) {
-        draft.entities[action.payload.id].quantity = action.payload.quantity;
+      case CartActionTypes.RemoveItem: {
+        const ids = draft.ids as Array<number | string>;
+        if (ids.includes(action.payload)) {
+          return cartAdapter.removeOne(action.payload, draft);
+        }
         return;
       }
-      return;
-    }
-    case CartActionTypes.RemoveItem: {
-      const ids = draft.ids as Array<number | string>;
-      if (ids.includes(action.payload)) {
-        return cartAdapter.removeOne(action.payload, draft);
+      case CartActionTypes.ConfirmOrder: {
+        draft.isloading = true;
+        return;
       }
-      return;
+      case CartActionTypes.ConfirmOrderSuccess: {
+        return initialState;
+      }
+      case CartActionTypes.ConfirmOrderFail: {
+        draft.isloading = false;
+        return;
+      }
+      case CartActionTypes.GetCartItemSuccess: {
+        draft.ids = action.payload.carts.map(cart => cart.productId);
+        draft.entities = action.payload.carts.reduce(
+          (acc, cur) => {
+            acc[cur.productId] = cur;
+            return acc;
+          },
+          {} as Dictionary<CartItem>
+        );
+        break;
+      }
+      case CartActionTypes.ResetCart: {
+        return initialState;
+      }
     }
-    case CartActionTypes.ConfirmOrder: {
-      draft.isloading = true;
-      return;
-    }
-    case CartActionTypes.ConfirmOrderSuccess: {
-      return initialState;
-    }
-    case CartActionTypes.ConfirmOrderFail: {
-      draft.isloading = false;
-      return;
-    }
-    case CartActionTypes.GetCartItemSuccess: {
-      draft.ids = action.payload.carts.map(cart => cart.productId);
-      draft.entities = action.payload.carts.reduce(
-        (acc, cur) => {
-          acc[cur.productId] = cur;
-          return acc;
-        },
-        {} as Dictionary<CartItem>
-      );
-      break;
-    }
-    case CartActionTypes.ResetCart: {
-      return initialState;
-    }
-  }
-}, initialState);
+  });
+}
 
 const { selectEntities, selectAll } = cartAdapter.getSelectors();
 

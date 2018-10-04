@@ -1,3 +1,4 @@
+import { reducer } from 'src/app/core/store/auth.reducer';
 import { CartEffects } from './cart/store/cart.effect';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -18,14 +19,13 @@ import { AuthEffects } from './core/store/auth.effect';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
-    CoreModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([AuthEffects, CartEffects]),
     StoreDevtoolsModule.instrument({
-      name: 'Shopping Cart Store DevTools',
-      logOnly: environment.production
+      name: 'Simple Shopping Cart DevTool'
     }),
+    AppRoutingModule,
+    CoreModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
   declarations: [AppComponent],

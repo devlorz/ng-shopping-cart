@@ -14,33 +14,35 @@ export const initialState: State = {
   isLoading: false
 };
 
-export const reducer = produce<State, AuthActions>((draft, action) => {
-  switch (action.type) {
-    case AuthActionTypes.LoginSuccess:
-    case AuthActionTypes.GetUserSuccess: {
-      draft.user = action.user;
-      draft.loggedIn = true;
-      draft.isLoading = false;
-      return;
+export function reducer(state = initialState, action: AuthActions) {
+  return produce(state, draft => {
+    switch (action.type) {
+      case AuthActionTypes.LoginSuccess:
+      case AuthActionTypes.GetUserSuccess: {
+        draft.user = action.user;
+        draft.loggedIn = true;
+        draft.isLoading = false;
+        return;
+      }
+      case AuthActionTypes.GetUser: {
+        draft.isLoading = true;
+        return;
+      }
+      case AuthActionTypes.GetUserFailure: {
+        draft.isLoading = false;
+        return;
+      }
+      case AuthActionTypes.Logout: {
+        draft.isLoading = true;
+        return;
+      }
+      case AuthActionTypes.LogoutSuccess: {
+        return initialState;
+      }
+      case AuthActionTypes.LogoutFailure: {
+        draft.isLoading = false;
+        return;
+      }
     }
-    case AuthActionTypes.GetUser: {
-      draft.isLoading = true;
-      return;
-    }
-    case AuthActionTypes.GetUserFailure: {
-      draft.isLoading = false;
-      return;
-    }
-    case AuthActionTypes.Logout: {
-      draft.isLoading = true;
-      return;
-    }
-    case AuthActionTypes.LogoutSuccess: {
-      return initialState;
-    }
-    case AuthActionTypes.LogoutFailure: {
-      draft.isLoading = false;
-      return;
-    }
-  }
-}, initialState);
+  });
+}
