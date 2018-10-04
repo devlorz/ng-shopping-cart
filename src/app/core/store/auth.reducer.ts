@@ -22,26 +22,26 @@ export function reducer(state = initialState, action: AuthActions) {
         draft.user = action.user;
         draft.loggedIn = true;
         draft.isLoading = false;
-        return;
+        break;
       }
       case AuthActionTypes.GetUser: {
         draft.isLoading = true;
-        return;
+        break;
       }
       case AuthActionTypes.GetUserFailure: {
         draft.isLoading = false;
-        return;
+        break;
       }
       case AuthActionTypes.Logout: {
         draft.isLoading = true;
-        return;
+        break;
       }
       case AuthActionTypes.LogoutSuccess: {
         return initialState;
       }
       case AuthActionTypes.LogoutFailure: {
         draft.isLoading = false;
-        return;
+        break;
       }
     }
   });

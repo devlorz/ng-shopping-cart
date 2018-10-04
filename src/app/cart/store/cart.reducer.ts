@@ -24,7 +24,7 @@ export function reducer(state = initialState, action: CartActions) {
         if (ids.includes(action.payload.productId)) {
           draft.entities[action.payload.productId].quantity +=
             action.payload.quantity;
-          return;
+          break;
         } else {
           return cartAdapter.addOne(action.payload, draft);
         }
@@ -33,7 +33,7 @@ export function reducer(state = initialState, action: CartActions) {
         const ids = draft.ids as Array<number | string>;
         if (ids.includes(action.payload.id)) {
           draft.entities[action.payload.id].quantity = action.payload.quantity;
-          return;
+          break;
         }
         return;
       }
@@ -42,18 +42,18 @@ export function reducer(state = initialState, action: CartActions) {
         if (ids.includes(action.payload)) {
           return cartAdapter.removeOne(action.payload, draft);
         }
-        return;
+        break;
       }
       case CartActionTypes.ConfirmOrder: {
         draft.isloading = true;
-        return;
+        break;
       }
       case CartActionTypes.ConfirmOrderSuccess: {
         return initialState;
       }
       case CartActionTypes.ConfirmOrderFail: {
         draft.isloading = false;
-        return;
+        break;
       }
       case CartActionTypes.GetCartItemSuccess: {
         draft.ids = action.payload.carts.map(cart => cart.productId);
