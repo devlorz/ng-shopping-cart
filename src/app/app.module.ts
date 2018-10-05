@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { reducers } from './app.reducer';
 import { AuthEffects } from './core/store/auth.effect';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { AuthEffects } from './core/store/auth.effect';
     }),
     AppRoutingModule,
     CoreModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
