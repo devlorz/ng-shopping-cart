@@ -30,7 +30,7 @@ export function reducer(state = initialState, action: CartActions) {
         }
       }
       case CartActionTypes.AdjustQuantity: {
-        const ids = draft.ids as Array<number | string>;
+        const ids = state.ids as Array<number | string>;
         if (ids.includes(action.payload.id)) {
           draft.entities[action.payload.id].quantity = action.payload.quantity;
           break;
@@ -38,7 +38,7 @@ export function reducer(state = initialState, action: CartActions) {
         break;
       }
       case CartActionTypes.RemoveItem: {
-        const ids = draft.ids as Array<number | string>;
+        const ids = state.ids as Array<number | string>;
         if (ids.includes(action.payload)) {
           return cartAdapter.removeOne(action.payload, state);
         }
