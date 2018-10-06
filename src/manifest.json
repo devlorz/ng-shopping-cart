@@ -1,11 +1,10 @@
 {
   "name": "Simple Shopping Cart",
   "short_name": "NgCart",
+  "start_url": "/",
   "theme_color": "#ff4081",
   "background_color": "#ffffff",
   "display": "standalone",
-  "scope": "/",
-  "start_url": "/",
   "orientation": "portrait",
   "icons": [
     {
