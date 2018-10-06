@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -12,6 +18,9 @@ import { LoadingComponent } from '../../shared/components/loading/loading.compon
   styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent implements OnInit, OnDestroy {
+  @Output()
+  sidenavToggle = new EventEmitter();
+
   loadingDialogRef: MatDialogRef<LoadingComponent>;
   loadingSubscription: Subscription;
 
@@ -42,13 +51,16 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
   onLogin() {
     this.auth.signIn();
+    this.sidenavToggle.emit();
   }
 
   onLogOut() {
     this.auth.signOut();
+    this.sidenavToggle.emit();
   }
 
   onClickOrder() {
     this.router.navigate(['order']);
+    this.sidenavToggle.emit();
   }
 }
