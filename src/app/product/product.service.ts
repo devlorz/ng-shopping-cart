@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { tap, filter, map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 
-import { ProductDataService } from './product-data.service';
-import { Product } from './product.model';
-import { State as ProductState } from './store/product.reducer';
-import * as ProductAction from './store/product.action';
-import * as ProductSelector from './store/product.selector';
 import { GetProducts } from './store/product.action';
+import { State as ProductState } from './store/product.reducer';
+import * as ProductSelector from './store/product.selector';
 
 @Injectable({
   providedIn: 'root'

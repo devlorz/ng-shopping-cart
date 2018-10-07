@@ -1,8 +1,7 @@
-import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { AppState } from './../../app.reducer';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+
 import { State } from './auth.reducer';
 
-// export const getAuthState = (state: AppState) => state.auth;
 export const getAuthState = createFeatureSelector<State>('auth');
 
 export const getLoggedInStatus = createSelector(

@@ -1,14 +1,15 @@
-import { Product } from './../product.model';
-import { ProductDataService } from './../product-data.service';
 import { Injectable } from '@angular/core';
-import { Effect, Actions, ofType } from '@ngrx/effects';
-import {
-  ProductActionTypes,
-  GetProductsSuccess,
-  GetProductsFail
-} from './product.action';
-import { switchMap, tap, map, catchError } from 'rxjs/operators';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+
+import { ProductDataService } from './../product-data.service';
+import { Product } from './../product.model';
+import {
+  GetProductsFail,
+  GetProductsSuccess,
+  ProductActionTypes
+} from './product.action';
 
 @Injectable()
 export class ProductEffects {
@@ -33,8 +34,6 @@ export class ProductEffects {
             )
           }))
         ),
-        tap(products => console.log(products)),
-
         map(products => new GetProductsSuccess(products)),
         catchError(err => of(new GetProductsFail(err)))
       )

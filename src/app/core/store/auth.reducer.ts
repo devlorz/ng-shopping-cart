@@ -1,6 +1,7 @@
 import produce from 'immer';
+
 import { User } from '../user.model';
-import { AuthActionTypes, AuthActions } from './auth.action';
+import { AuthActions, AuthActionTypes } from './auth.action';
 
 export interface State {
   loggedIn: boolean;

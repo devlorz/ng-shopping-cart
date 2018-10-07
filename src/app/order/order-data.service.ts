@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { OrderModule } from './order.module';
 
 @Injectable({
   providedIn: 'root'

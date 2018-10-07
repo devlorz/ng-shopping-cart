@@ -1,25 +1,24 @@
 import { Injectable } from '@angular/core';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { of } from 'rxjs';
 import {
-  tap,
-  map,
   catchError,
-  withLatestFrom,
-  concatMap,
-  switchMap
+  map,
+  switchMap,
+  tap,
+  withLatestFrom
 } from 'rxjs/operators';
 
-import { getUser } from './../../core/store/auth.selector';
-import {
-  OrderActionTypes,
-  GetOrdersSuccess,
-  GetOrdersFail
-} from './order.action';
 import { AppState } from '../../app.reducer';
 import { OrderDataService } from '../order-data.service';
 import { Order } from '../order.model';
-import { of } from 'rxjs';
+import { getUser } from './../../core/store/auth.selector';
+import {
+  GetOrdersFail,
+  GetOrdersSuccess,
+  OrderActionTypes
+} from './order.action';
 
 @Injectable()
 export class OrderEffects {
@@ -35,7 +34,6 @@ export class OrderEffects {
     withLatestFrom(this.store.select(getUser)),
     switchMap(([action, user]) =>
       this.orderService.getOrders(user.uid).pipe(
-        tap(result => console.log(result)),
         map((result: any) => result.orders),
         map((orders: Array<Order>) => new GetOrdersSuccess(orders)),
         catchError(error => of(new GetOrdersFail(error)))

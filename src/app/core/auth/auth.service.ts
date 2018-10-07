@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
+import { GetUser, Login, Logout } from '../store/auth.action';
 import { State as AuthState } from '../store/auth.reducer';
-import { Login, Logout, GetUser } from '../store/auth.action';
 import {
-  getUser as getUserState,
   getLoadingStatus,
-  getLoggedInStatus
+  getLoggedInStatus,
+  getUser as getUserState
 } from '../store/auth.selector';
 
 @Injectable({

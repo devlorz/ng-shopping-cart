@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { CartService } from '../../../cart/cart.service';
+import { LoadingComponent } from '../../../shared/components/loading/loading.component';
 import { Product } from '../../product.model';
 import { ProductService } from '../../product.service';
-import { CartService } from '../../../cart/cart.service';
 import { ProductDetailWrapperComponent } from '../product-detail-wrapper/product-detail-wrapper.component';
-import { LoadingComponent } from '../../../shared/components/loading/loading.component';
 
 @Component({
   selector: 'app-product-list',

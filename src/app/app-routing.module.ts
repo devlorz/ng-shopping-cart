@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { Route } from './core/route.service';
+
 import { AuthGuard } from './core/auth/auth.guard';
+import { Route } from './core/route.service';
 
 const routes: Routes = [
   Route.withShell([

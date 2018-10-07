@@ -24,8 +24,8 @@ import {
   UpdateCartFail,
   UpdateCartSuccess
 } from './cart.action';
-import { getAllCartItems } from './cart.selector';
 import { ErrorMessage } from './cart.reducer';
+import { getAllCartItems } from './cart.selector';
 
 @Injectable()
 export class CartEffects {
@@ -42,10 +42,9 @@ export class CartEffects {
     withLatestFrom(this.store.select(getUser)),
     concatMap(([action, user]: [ConfirmOrder, User]) => {
       if (user) {
-        return this.cartService.updateOrder(action.payload, user.uid).pipe(
-          tap(result => console.log(result)),
-          map(res => new ConfirmOrderSuccess())
-        );
+        return this.cartService
+          .updateOrder(action.payload, user.uid)
+          .pipe(map(res => new ConfirmOrderSuccess()));
       } else {
         return of(new ConfirmOrderFail(ErrorMessage.NotLogin));
       }
@@ -69,7 +68,6 @@ export class CartEffects {
     ),
     withLatestFrom(this.store.select(getUser)),
     withLatestFrom(this.store.select(getAllCartItems)),
-    tap(([[action, user], carts]) => console.log(carts)),
     filter(([[action, user], carts]) => user !== null),
     concatMap(([[action, user], carts]) =>
       this.cartService

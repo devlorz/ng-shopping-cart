@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+
 import { User } from '../user.model';
 
 export enum AuthActionTypes {

@@ -1,14 +1,14 @@
-import { NumberPickerDialogComponent } from './../../../shared/components/number-picker-dialog/number-picker-dialog.component';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { Observable, Subscription, Subject } from 'rxjs';
-import { tap, filter, withLatestFrom, takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { filter, takeUntil, withLatestFrom } from 'rxjs/operators';
 
-import { CartItem } from '../../cart.model';
 import { Product } from '../../../product/product.model';
-import { CartService } from '../../cart.service';
 import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
 import { LoadingComponent } from '../../../shared/components/loading/loading.component';
+import { CartItem } from '../../cart.model';
+import { CartService } from '../../cart.service';
+import { NumberPickerDialogComponent } from './../../../shared/components/number-picker-dialog/number-picker-dialog.component';
 
 @Component({
   selector: 'app-cart-list',

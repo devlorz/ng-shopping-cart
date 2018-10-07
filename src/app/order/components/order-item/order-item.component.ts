@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import { Order, OrderItem } from './../../order.model';
+import { OrderItem } from './../../order.model';
 
 @Component({
   selector: 'app-order-item',

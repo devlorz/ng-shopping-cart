@@ -1,8 +1,8 @@
-import { createEntityAdapter, EntityState, Dictionary } from '@ngrx/entity';
+import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import produce from 'immer';
 
-import { CartActions, CartActionTypes } from './cart.action';
 import { CartItem } from './../cart.model';
+import { CartActions, CartActionTypes } from './cart.action';
 
 const cartAdapter = createEntityAdapter<CartItem>({
   selectId: (cart: CartItem) => cart.productId

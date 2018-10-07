@@ -1,16 +1,16 @@
 import {
   Component,
-  OnInit,
+  EventEmitter,
   OnDestroy,
-  Output,
-  EventEmitter
+  OnInit,
+  Output
 } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { AuthService } from '../auth/auth.service';
 import { LoadingComponent } from '../../shared/components/loading/loading.component';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-sidenav',

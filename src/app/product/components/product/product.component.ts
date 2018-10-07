@@ -1,11 +1,12 @@
 import {
-  Component,
-  OnInit,
-  Input,
-  Output,
   ChangeDetectionStrategy,
-  EventEmitter
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output
 } from '@angular/core';
+
 import { Product } from '../../product.model';
 
 @Component({

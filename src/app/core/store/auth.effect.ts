@@ -1,43 +1,41 @@
-import { Dictionary } from '@ngrx/entity';
-import {
-  GetCartItemSuccess,
-  GetCartItemFail,
-  ResetCart
-} from './../../cart/store/cart.action';
-import { CartDataService } from './../../cart/cart-data.service';
-import { AppState } from './../../app.reducer';
-import { ResetOrders } from './../../order/store/order.action';
-import { AuthDataService } from '../auth/auth-data.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { of, from } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { User as FirebaseUser } from 'firebase';
+import { of } from 'rxjs';
 import {
+  catchError,
+  concatMap,
   exhaustMap,
   map,
-  catchError,
-  tap,
-  withLatestFrom,
-  concatMap,
+  switchMap,
   take,
-  switchMap
+  tap,
+  withLatestFrom
 } from 'rxjs/operators';
-import { User as FirebaseUser } from 'firebase';
 
+import { CartItem } from '../../cart/cart.model';
+import { AuthDataService } from '../auth/auth-data.service';
+import { User } from '../user.model';
+import { AppState } from './../../app.reducer';
+import { CartDataService } from './../../cart/cart-data.service';
+import {
+  GetCartItemFail,
+  GetCartItemSuccess,
+  ResetCart
+} from './../../cart/store/cart.action';
+import { ResetOrders } from './../../order/store/order.action';
 import {
   AuthActionTypes,
-  LoginSuccess,
-  LoginFailure,
-  GetUserSuccess,
   GetUserFailure,
-  LogoutSuccess,
-  LogoutFailure
+  GetUserSuccess,
+  LoginFailure,
+  LoginSuccess,
+  LogoutFailure,
+  LogoutSuccess
 } from './auth.action';
-import { User } from '../user.model';
-import { OrderService } from '../../order/order.service';
-import { Store } from '@ngrx/store';
 import { getUser } from './auth.selector';
-import { CartItem } from '../../cart/cart.model';
 
 @Injectable()
 export class AuthEffects {
@@ -54,7 +52,6 @@ export class AuthEffects {
     ofType(AuthActionTypes.Login),
     exhaustMap(_ =>
       this.authService.googleLogin().pipe(
-        tap(credential => console.log(credential)),
         map(credential => {
           const {
             uid,
@@ -96,7 +93,6 @@ export class AuthEffects {
     ofType(AuthActionTypes.GetUser),
     exhaustMap(_ =>
       this.authService.getUserFromFirebaseAuth().pipe(
-        tap(user => console.log(user)),
         map((firebaseUser: FirebaseUser) => {
           const { uid, email, displayName, photoURL } = firebaseUser;
           const user: User = {

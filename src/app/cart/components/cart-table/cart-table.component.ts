@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { CartItem } from '../../cart.model';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { Product } from '../../../product/product.model';
+import { CartItem } from '../../cart.model';
 
 @Component({
   selector: 'app-cart-table',
@@ -20,13 +21,7 @@ export class CartTableComponent implements OnInit {
     quantity: number;
   }>();
 
-  displayedColumns: Array<string> = [
-    'title',
-    // 'description',
-    'quantity',
-    'total',
-    'delete'
-  ];
+  displayedColumns: Array<string> = ['title', 'quantity', 'total', 'delete'];
 
   constructor() {}
 

@@ -1,13 +1,13 @@
-import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { map, publishReplay, refCount } from 'rxjs/operators';
 
+import { createOrder } from '../order/order.model';
 import { Product } from '../product/product.model';
+import { CartItem, createCartItem } from './cart.model';
+import * as CartAction from './store/cart.action';
 import { State as CartState } from './store/cart.reducer';
 import * as CartSelector from './store/cart.selector';
-import * as CartAction from './store/cart.action';
-import { createCartItem, CartItem } from './cart.model';
-import { createOrder } from '../order/order.model';
 
 @Injectable({
   providedIn: 'root'

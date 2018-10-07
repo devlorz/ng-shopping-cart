@@ -1,6 +1,5 @@
-import { MatDialog } from '@angular/material';
-import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { pluck } from 'rxjs/operators';
 

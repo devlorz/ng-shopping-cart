@@ -1,11 +1,12 @@
 import { ActionReducerMap } from '@ngrx/store';
+
 import {
-  State as CartState,
-  reducer as CartReducer
+  reducer as CartReducer,
+  State as CartState
 } from './cart/store/cart.reducer';
 import {
-  State as AuthState,
-  reducer as AuthReducer
+  reducer as AuthReducer,
+  State as AuthState
 } from './core/store/auth.reducer';
 
 export interface AppState {

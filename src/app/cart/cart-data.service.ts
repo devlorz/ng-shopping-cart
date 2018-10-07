@@ -1,13 +1,9 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument
-} from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { firestore } from 'firebase';
 import { from } from 'rxjs';
 
 import { Order } from '../order/order.model';
-import { Dictionary } from '@ngrx/entity';
 import { CartItem } from './cart.model';
 
 @Injectable({

@@ -1,9 +1,10 @@
-import { LoadingComponent } from './../../../shared/components/loading/loading.component';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Subscription } from 'rxjs';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+
 import { AuthService } from '../../../core/auth/auth.service';
 import { OrderService } from '../../order.service';
+import { LoadingComponent } from './../../../shared/components/loading/loading.component';
 
 @Component({
   selector: 'app-order-list',
