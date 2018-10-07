@@ -1,8 +1,8 @@
 import { NumberPickerDialogComponent } from './../../../shared/components/number-picker-dialog/number-picker-dialog.component';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { Observable, Subscription } from 'rxjs';
-import { tap, filter, withLatestFrom } from 'rxjs/operators';
+import { Observable, Subscription, Subject } from 'rxjs';
+import { tap, filter, withLatestFrom, takeUntil } from 'rxjs/operators';
 
 import { CartItem } from '../../cart.model';
 import { Product } from '../../../product/product.model';
@@ -19,15 +19,16 @@ export class CartListComponent implements OnInit, OnDestroy {
   dataSource$: Observable<Array<CartItem & Product>>;
   total$: Observable<number>;
   loadingDialogRef: MatDialogRef<LoadingComponent>;
-  loadingSubscription: Subscription;
+  ngUnsubscribe$ = new Subject();
 
   constructor(private cartService: CartService, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.dataSource$ = this.cartService.selectItems$;
     this.total$ = this.cartService.selectTotal$;
-    this.loadingSubscription = this.cartService.isLoading$.subscribe(
-      isLoading => {
+    this.cartService.isLoading$
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(isLoading => {
         if (isLoading) {
           this.loadingDialogRef = this.dialog.open(LoadingComponent);
         } else {
@@ -35,26 +36,28 @@ export class CartListComponent implements OnInit, OnDestroy {
             this.loadingDialogRef.close();
           }
         }
-      }
-    );
-    this.cartService.errorMessage$.subscribe(message => {
-      if (message) {
-        const dialogRef = this.dialog.open(DialogComponent, {
-          data: {
-            message,
-            isConfirm: false
-          }
-        });
+      });
+    this.cartService.errorMessage$
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(message => {
+        if (message) {
+          const dialogRef = this.dialog.open(DialogComponent, {
+            data: {
+              message,
+              isConfirm: false
+            }
+          });
 
-        dialogRef
-          .afterClosed()
-          .subscribe(_ => this.cartService.resetErrorMessage());
-      }
-    });
+          dialogRef
+            .afterClosed()
+            .subscribe(_ => this.cartService.resetErrorMessage());
+        }
+      });
   }
 
   ngOnDestroy() {
-    this.loadingSubscription.unsubscribe();
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 
   onDelete(id: number) {

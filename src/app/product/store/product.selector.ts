@@ -7,3 +7,8 @@ export const getAllProducts = createSelector(
   getProductState,
   state => state.products
 );
+
+export const getLoadingStatus = createSelector(
+  getProductState,
+  state => state.isLoading
+);

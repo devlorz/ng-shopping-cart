@@ -14,10 +14,9 @@ import { GetProducts } from './store/product.action';
   providedIn: 'root'
 })
 export class ProductService {
-  constructor(
-    private productDataService: ProductDataService,
-    private productStore: Store<ProductState>
-  ) {}
+  constructor(private productStore: Store<ProductState>) {}
+
+  isLoading$ = this.productStore.select(ProductSelector.getLoadingStatus);
 
   getProducts() {
     this.productStore.dispatch(new GetProducts());

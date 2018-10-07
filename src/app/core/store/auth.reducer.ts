@@ -17,6 +17,10 @@ export const initialState: State = {
 export function reducer(state = initialState, action: AuthActions) {
   return produce(state, draft => {
     switch (action.type) {
+      case AuthActionTypes.Login: {
+        draft.isLoading = true;
+        break;
+      }
       case AuthActionTypes.LoginSuccess:
       case AuthActionTypes.GetUserSuccess: {
         draft.user = action.user;

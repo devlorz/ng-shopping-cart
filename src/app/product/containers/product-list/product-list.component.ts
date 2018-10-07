@@ -1,23 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { Product } from '../../product.model';
 import { ProductService } from '../../product.service';
 import { CartService } from '../../../cart/cart.service';
 import { ProductDetailWrapperComponent } from '../product-detail-wrapper/product-detail-wrapper.component';
+import { LoadingComponent } from '../../../shared/components/loading/loading.component';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
   products$: Observable<Product[]>;
   loading$: Observable<boolean>;
   search = new FormControl();
+  loadingSubscription: Subscription;
+  loadingDialogRef: MatDialogRef<LoadingComponent>;
 
   constructor(
     private productService: ProductService,
@@ -26,11 +29,27 @@ export class ProductListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.productService.get().subscribe();
-
     this.products$ = this.productService.getProductByKeyword('');
 
     this.productService.getProducts();
+
+    this.loadingSubscription = this.productService.isLoading$.subscribe(
+      isLoading => {
+        if (isLoading) {
+          setTimeout(() => {
+            this.loadingDialogRef = this.dialog.open(LoadingComponent);
+          });
+        } else {
+          if (this.loadingDialogRef) {
+            this.loadingDialogRef.close();
+          }
+        }
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    this.loadingSubscription.unsubscribe();
   }
 
   onAddToCart(product: Product) {
