@@ -10,10 +10,16 @@ const cartAdapter = createEntityAdapter<CartItem>({
 
 export interface State extends EntityState<CartItem> {
   isloading: boolean;
+  errorMessage: string;
+}
+
+export enum ErrorMessage {
+  NotLogin = 'Not Login'
 }
 
 const initialState = cartAdapter.getInitialState({
-  isloading: false
+  isloading: false,
+  errorMessage: ''
 });
 
 export function reducer(state = initialState, action: CartActions) {
@@ -52,6 +58,9 @@ export function reducer(state = initialState, action: CartActions) {
         return initialState;
       }
       case CartActionTypes.ConfirmOrderFail: {
+        if (action.payload && action.payload === ErrorMessage.NotLogin) {
+          draft.errorMessage = 'You need to login for confirming order';
+        }
         draft.isloading = false;
         break;
       }
@@ -60,6 +69,10 @@ export function reducer(state = initialState, action: CartActions) {
       }
       case CartActionTypes.ResetCart: {
         return initialState;
+      }
+      case CartActionTypes.ResetErrorMessage: {
+        draft.errorMessage = '';
+        break;
       }
     }
   });

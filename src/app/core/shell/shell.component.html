@@ -2,7 +2,7 @@
   <mat-sidenav #sidenav
                [mode]="sideNavMode"
                [opened]="!isSmallScreen">
-    <app-sidenav (sidenavToggle)="sidenav.toggle()"></app-sidenav>
+    <app-sidenav (sidenavToggle)="onSidenavToggle()"></app-sidenav>
   </mat-sidenav>
   <mat-sidenav-content>
     <app-header [cartItem]="cartItems$ | async"

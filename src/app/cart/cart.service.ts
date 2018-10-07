@@ -28,6 +28,8 @@ export class CartService {
 
   isLoading$ = this.cartStore.select(CartSelector.getLoadingStatus);
 
+  errorMessage$ = this.cartStore.select(CartSelector.getErrorMessage);
+
   addProduct(productId: Product['id'], quantity = 1) {
     const item = createCartItem({ productId, quantity });
     this.cartStore.dispatch(new CartAction.AddItem(item));
@@ -49,5 +51,9 @@ export class CartService {
   confirmOrder(items: Array<CartItem & Product>) {
     const order = createOrder(items);
     this.cartStore.dispatch(new CartAction.ConfirmOrder(order));
+  }
+
+  resetErrorMessage() {
+    this.cartStore.dispatch(new CartAction.ResetErrorMessage());
   }
 }

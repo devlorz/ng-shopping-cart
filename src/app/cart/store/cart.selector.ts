@@ -29,3 +29,8 @@ export const getLoadingStatus = createSelector(
   getCartState,
   state => state.isloading
 );
+
+export const getErrorMessage = createSelector(
+  getCartState,
+  state => state.errorMessage
+);

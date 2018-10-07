@@ -1,5 +1,5 @@
 import { MatDialog } from '@angular/material';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 import { pluck } from 'rxjs/operators';
@@ -12,6 +12,8 @@ import { CartService } from '../../cart/cart.service';
   styleUrls: ['./shell.component.css']
 })
 export class ShellComponent implements OnInit {
+  @ViewChild('sidenav')
+  sidenav;
   public isSmallScreen: boolean;
   public isFull = false;
 
@@ -60,5 +62,11 @@ export class ShellComponent implements OnInit {
 
   homeClick() {
     this.router.navigate(['']);
+  }
+
+  onSidenavToggle() {
+    if (this.isSmallScreen) {
+      this.sidenav.toggle();
+    }
   }
 }

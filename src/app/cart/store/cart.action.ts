@@ -16,7 +16,8 @@ export enum CartActionTypes {
   UpdateCartFail = '[Cart] Update Cart Fail',
   GetCartItemSuccess = '[Cart] Get Cart Item Success',
   GetCartItemFail = '[Cart] Get Cart Item Fail',
-  ResetCart = '[Cart] Reset Cart'
+  ResetCart = '[Cart] Reset Cart',
+  ResetErrorMessage = '[Cart] Reset Error Message'
 }
 
 export class AddItem implements Action {
@@ -79,6 +80,10 @@ export class ResetCart implements Action {
   readonly type = CartActionTypes.ResetCart;
 }
 
+export class ResetErrorMessage implements Action {
+  readonly type = CartActionTypes.ResetErrorMessage;
+}
+
 export type CartActions =
   | AddItem
   | AdjustQuantity
@@ -90,4 +95,5 @@ export type CartActions =
   | UpdateCartFail
   | GetCartItemSuccess
   | GetCartItemFail
-  | ResetCart;
+  | ResetCart
+  | ResetErrorMessage;

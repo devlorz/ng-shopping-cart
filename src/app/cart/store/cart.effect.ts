@@ -1,31 +1,31 @@
-import { CartDataService } from './../cart-data.service';
 import { Injectable } from '@angular/core';
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { Router } from '@angular/router';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
+import {
+  catchError,
+  concatMap,
+  filter,
+  map,
+  tap,
+  withLatestFrom
+} from 'rxjs/operators';
+
+import { AppState } from '../../app.reducer';
+import { getUser } from '../../core/store/auth.selector';
+import { User } from '../../core/user.model';
+import { CartDataService } from './../cart-data.service';
 import {
   CartActionTypes,
   ConfirmOrder,
-  ConfirmOrderSuccess,
   ConfirmOrderFail,
-  UpdateCartSuccess,
-  UpdateCartFail
+  ConfirmOrderSuccess,
+  UpdateCartFail,
+  UpdateCartSuccess
 } from './cart.action';
-import {
-  exhaustMap,
-  tap,
-  map,
-  catchError,
-  withLatestFrom,
-  concatMap,
-  switchMap,
-  filter
-} from 'rxjs/operators';
-import { getUser } from '../../core/store/auth.selector';
-import { AppState } from '../../app.reducer';
-import { Store } from '@ngrx/store';
-import { User } from '../../core/user.model';
-import { of } from 'rxjs';
-import { Router } from '@angular/router';
-import { getCarts, getAllCartItems } from './cart.selector';
+import { getAllCartItems } from './cart.selector';
+import { ErrorMessage } from './cart.reducer';
 
 @Injectable()
 export class CartEffects {
@@ -47,7 +47,7 @@ export class CartEffects {
           map(res => new ConfirmOrderSuccess())
         );
       } else {
-        return of(new ConfirmOrderFail('not login'));
+        return of(new ConfirmOrderFail(ErrorMessage.NotLogin));
       }
     }),
     catchError(err => of(new ConfirmOrderFail(err)))

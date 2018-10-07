@@ -37,6 +37,20 @@ export class CartListComponent implements OnInit, OnDestroy {
         }
       }
     );
+    this.cartService.errorMessage$.subscribe(message => {
+      if (message) {
+        const dialogRef = this.dialog.open(DialogComponent, {
+          data: {
+            message,
+            isConfirm: false
+          }
+        });
+
+        dialogRef
+          .afterClosed()
+          .subscribe(_ => this.cartService.resetErrorMessage());
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -45,7 +59,10 @@ export class CartListComponent implements OnInit, OnDestroy {
 
   onDelete(id: number) {
     const dialog = this.dialog.open(DialogComponent, {
-      data: 'Are you sure you want to remove this product?'
+      data: {
+        message: 'Are you sure you want to remove this product?',
+        isConfirm: true
+      }
     });
     dialog.afterClosed().subscribe(result => {
       if (result) {
@@ -67,7 +84,10 @@ export class CartListComponent implements OnInit, OnDestroy {
 
   onCheckout() {
     const dialog = this.dialog.open(DialogComponent, {
-      data: 'Are you sure you want to checkout?'
+      data: {
+        message: 'Are you sure you want to checkout?',
+        isConfirm: true
+      }
     });
     dialog
       .afterClosed()
