@@ -36,10 +36,10 @@
     <mat-header-cell *matHeaderCellDef
                      class="center"> Total </mat-header-cell>
     <mat-cell *matCellDef="let element"
-              class="right"> {{ element.total | number }}
+              class="right"> {{ element.total | currency: 'THB': 'symbol-narrow' : '1.0' }}
     </mat-cell>
     <mat-footer-cell *matFooterCellDef
-                     class="right"> {{ total | number }} </mat-footer-cell>
+                     class="right"> {{ total | currency: 'THB': 'symbol-narrow' : '1.0' }} </mat-footer-cell>
   </ng-container>
   <ng-container matColumnDef="delete">
     <mat-header-cell *matHeaderCellDef
