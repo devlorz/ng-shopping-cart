@@ -31,7 +31,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.products$ = this.productService.getProductByKeyword('');
 
-    this.productService.getProducts();
+    // this.productService.getProducts();
 
     this.loadingSubscription = this.productService.isLoading$.subscribe(
       isLoading => {

@@ -12,17 +12,22 @@ export const getAllCartItems = createSelector(getCartState, selectAllCartItems);
 export const getCartsWithDetail = createSelector(
   getAllCartItems,
   productSelector.getAllProducts,
-  (cartItems, products) =>
-    cartItems.map(cartItem => {
-      const productDetail = products.find(
-        product => product.id === cartItem.productId
-      );
-      return {
-        ...cartItem,
-        ...productDetail,
-        total: cartItem.quantity * productDetail.price
-      };
-    })
+  (cartItems, products) => {
+    if (products.length > 0) {
+      return cartItems.map(cartItem => {
+        const productDetail = products.find(
+          product => product.id === cartItem.productId
+        );
+        return {
+          ...cartItem,
+          ...productDetail,
+          total: cartItem.quantity * productDetail.price
+        };
+      });
+    } else {
+      return [];
+    }
+  }
 );
 
 export const getLoadingStatus = createSelector(
