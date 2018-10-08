@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { AuthService } from '../../../core/auth/auth.service';
 import { OrderService } from '../../order.service';
@@ -13,8 +14,7 @@ import { LoadingComponent } from './../../../shared/components/loading/loading.c
 })
 export class OrderListComponent implements OnInit, OnDestroy {
   orders$ = this.orderService.getAllOrders();
-  userSubscription: Subscription;
-  loadingSubscription: Subscription;
+  ngUnsubscribe$ = new Subject();
   loadingDialogRef: MatDialogRef<LoadingComponent>;
 
   constructor(
@@ -24,14 +24,18 @@ export class OrderListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.userSubscription = this.authService.getUserInfo().subscribe(user => {
-      if (user) {
-        this.orderService.getOrders();
-      }
-    });
+    this.authService
+      .getUserInfo()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(user => {
+        if (user) {
+          this.orderService.getOrders();
+        }
+      });
 
-    this.loadingSubscription = this.orderService.isLoading$.subscribe(
-      isLoading => {
+    this.orderService.isLoading$
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(isLoading => {
         if (isLoading) {
           setTimeout(() => {
             this.loadingDialogRef = this.dialog.open(LoadingComponent);
@@ -41,11 +45,11 @@ export class OrderListComponent implements OnInit, OnDestroy {
             this.loadingDialogRef.close();
           }
         }
-      }
-    );
+      });
   }
 
   ngOnDestroy() {
-    this.userSubscription.unsubscribe();
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 }

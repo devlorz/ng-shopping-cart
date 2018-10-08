@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 
 import { GetOrders, ResetOrders } from './store/order.action';
 import { State as OrderState } from './store/order.reducer';
@@ -9,8 +9,7 @@ import { getAllOrders, getLoadingStatus } from './store/order.selector';
   providedIn: 'root'
 })
 export class OrderService {
-  isLoading$ = this.store.select(getLoadingStatus);
-
+  isLoading$ = this.store.pipe(select(getLoadingStatus));
   constructor(private store: Store<OrderState>) {}
 
   resetOrders() {
