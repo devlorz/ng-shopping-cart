@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NumberPickerComponent } from './number-picker.component';
+import { MaterialModule } from 'src/app/material/material.module';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('NumberPickerComponent', () => {
   let component: NumberPickerComponent;
@@ -8,9 +11,9 @@ describe('NumberPickerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NumberPickerComponent ]
-    })
-    .compileComponents();
+      imports: [MaterialModule, FormsModule, BrowserAnimationsModule],
+      declarations: [NumberPickerComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
