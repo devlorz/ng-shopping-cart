@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import {
   catchError,
   concatMap,
   filter,
   map,
   tap,
-  withLatestFrom
+  withLatestFrom,
+  mergeMap
 } from 'rxjs/operators';
 
 import { AppState } from '../../app.reducer';
@@ -40,15 +41,17 @@ export class CartEffects {
   confirmOrder$ = this.actions$.pipe(
     ofType(CartActionTypes.ConfirmOrder),
     withLatestFrom(this.store.select(getUser)),
-    concatMap(([action, user]: [ConfirmOrder, User]) => {
-      if (user) {
-        return this.cartService
-          .updateOrder(action.payload, user.uid)
-          .pipe(map(res => new ConfirmOrderSuccess()));
-      } else {
-        return of(new ConfirmOrderFail(ErrorMessage.NotLogin));
+    concatMap<[ConfirmOrder, User], ConfirmOrderSuccess | ConfirmOrderFail>(
+      ([action, user]: [ConfirmOrder, User]) => {
+        if (user) {
+          return this.cartService
+            .updateOrder(action.payload, user.uid)
+            .pipe(map(res => new ConfirmOrderSuccess()));
+        } else {
+          return of(new ConfirmOrderFail(ErrorMessage.NotLogin));
+        }
       }
-    }),
+    ),
     catchError(err => of(new ConfirmOrderFail(err)))
   );
 
