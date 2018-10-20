@@ -7,8 +7,8 @@
 Demo https://simple-shopping-cart.firebaseapp.com/
 
 ## Built By
-- [Angular 6](https://github.com/angular/angular) 
-- [Angular CLI 6](https://github.com/angular/angular-cli)
-- [Angular Material 6](https://github.com/angular/material2)
+- [Angular](https://github.com/angular/angular) 
+- [Angular CLI](https://github.com/angular/angular-cli)
+- [Angular Material](https://github.com/angular/material2)
 - [NGRX (store, effect, entity)](https://github.com/ngrx/platform)
 - [AngularFire](https://github.com/angular/angularfire2)
