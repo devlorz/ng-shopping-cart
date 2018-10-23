@@ -1,62 +1,38 @@
-import { MaterialModule } from './../../../material/material.module';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { NgModule } from '@angular/core';
+import { async, TestBed } from '@angular/core/testing';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MaterialModule } from './../../../material/material.module';
 import { DialogComponent } from './dialog.component';
-import { OverlayContainer } from '@angular/cdk/overlay';
 
 const dialogData = {
   message: 'test dialog',
   isConfirm: true
 };
 
-@Directive({
-  // tslint:disable-next-line:directive-selector
-  selector: 'view-container-directive'
+@NgModule({
+  declarations: [DialogComponent],
+  entryComponents: [DialogComponent],
+  exports: [DialogComponent]
 })
-class ViewContainerDirective {
-  constructor(public viewContainerRef: ViewContainerRef) {}
-}
-
-@Component({
-  selector: 'app-view-container-component',
-  template: `<view-container-directive></view-container-directive>`
-})
-class ViewContainerComponent {
-  @ViewChild(ViewContainerDirective)
-  childWithViewContainer: ViewContainerDirective;
-
-  get childViewContainer() {
-    return this.childWithViewContainer.viewContainerRef;
-  }
-}
+class TestModule {}
 
 describe('DialogComponent', () => {
   let component: DialogComponent;
-  let fixture: ComponentFixture<DialogComponent>;
-  let overlayContainerElement: HTMLElement;
+  let dialog: MatDialog;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MaterialModule],
-      declarations: [DialogComponent],
-      providers: [
-        { provide: MAT_DIALOG_DATA, useValue: dialogData },
-        {
-          provide: OverlayContainer,
-          useFactory: () => {
-            overlayContainerElement = document.createElement('div');
-            return { getContainerElement: () => overlayContainerElement };
-          }
-        }
-      ]
+      imports: [MaterialModule, NoopAnimationsModule, TestModule],
+      providers: [{ provide: MAT_DIALOG_DATA, useValue: dialogData }]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DialogComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    dialog = TestBed.get(MatDialog);
+    const dialogRef = dialog.open(DialogComponent);
+    component = dialogRef.componentInstance;
   });
 
   it('should create', () => {
