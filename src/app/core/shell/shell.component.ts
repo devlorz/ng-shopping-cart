@@ -12,7 +12,7 @@ import { ProductService } from '../../product/product.service';
   styleUrls: ['./shell.component.css']
 })
 export class ShellComponent implements OnInit {
-  @ViewChild('sidenav')
+  @ViewChild('sidenav', { static: true })
   sidenav;
   public isSmallScreen: boolean;
   public isFull = false;
