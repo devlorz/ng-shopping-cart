@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
 import { filter, takeUntil, withLatestFrom } from 'rxjs/operators';
 
