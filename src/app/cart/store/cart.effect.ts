@@ -41,17 +41,15 @@ export class CartEffects {
   confirmOrder$ = this.actions$.pipe(
     ofType(CartActionTypes.ConfirmOrder),
     withLatestFrom(this.store.select(getUser)),
-    concatMap<[ConfirmOrder, User], ConfirmOrderSuccess | ConfirmOrderFail>(
-      ([action, user]: [ConfirmOrder, User]) => {
-        if (user) {
-          return this.cartService
-            .updateOrder(action.payload, user.uid)
-            .pipe(map(res => new ConfirmOrderSuccess()));
-        } else {
-          return of(new ConfirmOrderFail(ErrorMessage.NotLogin));
-        }
+    concatMap(([action, user]: [ConfirmOrder, User]) => {
+      if (user) {
+        return this.cartService
+          .updateOrder(action.payload, user.uid)
+          .pipe(map(res => new ConfirmOrderSuccess()));
+      } else {
+        return of(new ConfirmOrderFail(ErrorMessage.NotLogin));
       }
-    ),
+    }),
     catchError(err => of(new ConfirmOrderFail(err)))
   );
 
